@@ -1,0 +1,7 @@
+{
+  "devDependencies": {
+    "tns-core-modules": "next",
+    "tns-platform-declarations": "next",
+    "typescript": "2.0.3"
+  }
+}
