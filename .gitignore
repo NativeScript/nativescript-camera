@@ -38,3 +38,6 @@ jspm_packages
 
 #Exclude all javascript (js) files from source code
 source/**/*.js
+
+# Dist directory where create script produces plugin installation files
+dist
