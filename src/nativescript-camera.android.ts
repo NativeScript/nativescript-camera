@@ -4,6 +4,7 @@ import * as applicationModule from "application";
 import * as imageSourceModule from "image-source";
 import * as imageAssetModule from "image-asset";
 import * as trace from "trace";
+import * as platform from "platform";
 
 var REQUEST_IMAGE_CAPTURE = 3453;
 var REQUEST_REQUIRED_PERMISSIONS = 1234;
@@ -51,7 +52,15 @@ export var takePicture = function (options?): Promise<any> {
                 picturePath = utils.ad.getApplicationContext().getExternalFilesDir(null).getAbsolutePath() + "/" + "NSIMG_" + dateStamp + ".jpg";
                 nativeFile = new java.io.File(picturePath);
             }
-            tempPictureUri = (<any>android.support.v4.content).FileProvider.getUriForFile(applicationModule.android.currentContext, applicationModule.android.nativeApp.getPackageName() + ".provider", nativeFile);
+            
+            let sdkVersionInt = parseInt(platform.device.sdkVersion);
+            if (sdkVersionInt >= 21) {
+                tempPictureUri = (<any>android.support.v4.content).FileProvider.getUriForFile(applicationModule.android.currentContext, applicationModule.android.nativeApp.getPackageName() + ".provider", nativeFile);
+            }
+            else {
+                tempPictureUri = android.net.Uri.fromFile(nativeFile);
+            }
+            
             takePictureIntent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, tempPictureUri);
 
             if (takePictureIntent.resolveActivity(utils.ad.getApplicationContext().getPackageManager()) != null) {
