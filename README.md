@@ -7,4 +7,4 @@ Steps to create redistributable package.
 2. npm install
 3. ./create.sh
 
-This will create a `nativescript-camera-*.tgz` file (* stands for version).
+This will create a `nativescript-camera-*.tgz` file (* stands for version) within ./dist folder.
