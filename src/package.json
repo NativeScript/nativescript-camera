@@ -1,12 +1,12 @@
 {
     "name": "nativescript-camera",
-    "version": "0.0.1",
-    "description": "Provides API for using Native camera device",
+    "version": "0.0.2",
+    "description": "Provides API for using device camera",
     "main": "nativescript-camera.js",
     "nativescript": {
         "platforms": {
-            "android": "2.2.0",
-            "ios": "2.2.1"
+            "android": "2.3.0",
+            "ios": "2.3.0"
         }
     },
     "keywords": [
