@@ -14,8 +14,7 @@
   },
   "dependencies": {
     "nativescript-camera": "0.0.2",
-    "tns-core-modules": "next",
-    "tns-platform-declarations": "next"
+    "tns-core-modules": "next"
   },
   "devDependencies": {
     "babel-traverse": "6.15.0",

@@ -4,9 +4,6 @@
         "target": "es5",
         "sourceMap": true,
         "experimentalDecorators": true,
-        "lib": [
-            "es2016"
-        ],
         "emitDecoratorMetadata": true,
         "noEmitHelpers": true,
         "noEmitOnError": true
