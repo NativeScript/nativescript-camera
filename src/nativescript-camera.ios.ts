@@ -49,7 +49,7 @@ class UIImagePickerControllerDelegateImpl extends NSObject implements UIImagePic
 
     imagePickerControllerDidFinishPickingMediaWithInfo(picker, info): void {
         if (info) {
-            let creationDate: Date;
+            let creationDate: Date = new Date();
             let picInfo = info.valueForKey(UIImagePickerControllerMediaMetadata);
             if (picInfo) {
                 let tiff = picInfo.valueForKey("{TIFF}");
