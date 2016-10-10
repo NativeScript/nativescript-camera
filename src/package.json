@@ -1,6 +1,6 @@
 {
     "name": "nativescript-camera",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Provides API for using device camera",
     "main": "nativescript-camera.js",
     "nativescript": {
