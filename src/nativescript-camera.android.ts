@@ -73,14 +73,20 @@ export var takePicture = function (options?): Promise<any> {
 
                     if (requestCode === REQUEST_IMAGE_CAPTURE && resultCode === android.app.Activity.RESULT_OK) {
                         if (saveToGallery) {
-                            let callback = new android.media.MediaScannerConnection.OnScanCompletedListener({
-                                onScanCompleted: function(path, uri) {
-                                    if (trace.enabled) {
-                                        trace.write(`image from path ${path} has been successfully scanned!`, trace.categories.Debug);
+                            try {
+                                let callback = new android.media.MediaScannerConnection.OnScanCompletedListener({
+                                    onScanCompleted: function(path, uri) {
+                                        if (trace.enabled) {
+                                            trace.write(`image from path ${path} has been successfully scanned!`, trace.categories.Debug);
+                                        }
                                     }
+                                });
+                                android.media.MediaScannerConnection.scanFile(appModule.android.context, [picturePath], null, callback);
+                            } catch (ex) {
+                                if (trace.enabled) {
+                                    trace.write(`An error occurred while scanning file ${picturePath}: ${ex.message}!`, trace.categories.Debug);
                                 }
-                            });
-                            android.media.MediaScannerConnection.scanFile(appModule.android.foregroundActivity, [picturePath], null, callback);
+                            }
                         };
 
                         let asset = new imageAssetModule.ImageAsset(picturePath);
