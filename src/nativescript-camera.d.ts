@@ -41,4 +41,13 @@ export interface CameraOptions {
      * Defines if camera picture should be copied to photo Gallery (Android) or Photos (iOS) 
      */
     saveToGallery?: boolean;
+
+    /**
+     * Only available for iOS
+     * Defines the type of source for the images ("Camera" - default, "PhotoLibrary", "SavedPhotosAlbum")
+     * Camera: Specifies the device’s built-in camera as the source for the image picker controller. 
+     * PhotoLibrary: Specifies the device’s photo library as the source for the image picker controller.
+     * SavedPhotosAlbum: Specifies the device’s Camera Roll album as the source for the image picker controller.
+     */
+    sourceType?: string;
 }

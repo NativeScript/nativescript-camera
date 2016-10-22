@@ -22,7 +22,7 @@ export function onRequestPermissionsTap(args: EventData) {
 export function onTakePictureTap(args: EventData) {
     let page = <Page>(<View>args.object).page;
     let saveToGallery = page.bindingContext.get("saveToGallery");
-    takePicture({saveToGallery: saveToGallery}).
+    takePicture({saveToGallery: saveToGallery, sourceType: "PhotoLibrary"}).
         then((imageAsset) => {
             page.bindingContext.set("cameraImage", imageAsset);
         }, 
