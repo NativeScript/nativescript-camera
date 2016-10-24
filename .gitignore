@@ -39,7 +39,7 @@ jspm_packages
 
 #Exclude all javascript (js) and (js.map) files from source code
 **/*.js
-**/*.js.map
+**/*.map
 
 # Dist directory where create script produces plugin installation files
 dist
