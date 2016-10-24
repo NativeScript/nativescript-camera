@@ -37,8 +37,9 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
-#Exclude all javascript (js) files from source code
+#Exclude all javascript (js) and (js.map) files from source code
 **/*.js
+**/*.map
 
 # Dist directory where create script produces plugin installation files
 dist
