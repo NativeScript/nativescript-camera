@@ -43,3 +43,6 @@ jspm_packages
 
 # Dist directory where create script produces plugin installation files
 dist
+
+# Ignoring .vscode (Visual Studio Code) internal directory
+.vscode
