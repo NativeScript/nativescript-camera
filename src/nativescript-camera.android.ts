@@ -117,7 +117,8 @@ export var isAvailable = function () {
 }
 
 export var requestPermissions = function () {
-    if ((<any>android.support.v4.content.ContextCompat).checkSelfPermission(applicationModule.android.currentContext, (<any>android).Manifest.permission.WRITE_EXTERNAL_STORAGE) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+    if ((<any>android.support.v4.content.ContextCompat).checkSelfPermission(applicationModule.android.currentContext, (<any>android).Manifest.permission.WRITE_EXTERNAL_STORAGE) != android.content.pm.PackageManager.PERMISSION_GRANTED ||
+        (<any>android.support.v4.content.ContextCompat).checkSelfPermission(applicationModule.android.currentContext, (<any>android).Manifest.permission.CAMERA) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
         (<any>android.support.v4.app.ActivityCompat).requestPermissions(applicationModule.android.currentContext, [(<any>android).Manifest.permission.CAMERA, (<any>android).Manifest.permission.WRITE_EXTERNAL_STORAGE], REQUEST_REQUIRED_PERMISSIONS);
     }
 }
