@@ -21,7 +21,7 @@
     "nativescript-angular": "1.1.1",
     "nativescript-camera": "0.0.7",
     "reflect-metadata": "~0.1.8",
-    "tns-core-modules": "^2.5.1"
+    "tns-core-modules": "^2.5.2"
   },
   "devDependencies": {
     "awesome-typescript-loader": "~2.2.4",
