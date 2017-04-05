@@ -7,14 +7,12 @@
     "id": "org.nativescript.CameraTest",
     "tns-ios": {
       "version": "2.5.0"
-    },
-    "tns-android": {
-      "version": "2.5.0"
     }
   },
   "dependencies": {
-    "nativescript-camera": "0.0.6",
-    "tns-core-modules": "^2.5.1"
+    "nativescript-camera": "0.0.8",
+    "nativescript-imagepicker": "^2.5.1",
+    "tns-core-modules": "^2.5.2"
   },
   "devDependencies": {
     "babel-traverse": "6.15.0",
