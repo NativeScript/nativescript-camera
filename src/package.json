@@ -1,6 +1,6 @@
 {
     "name": "nativescript-camera",
-    "version": "0.0.8",
+    "version": "3.0.0",
     "description": "Provides API for using device camera",
     "main": "nativescript-camera",
     "nativescript": {
@@ -10,7 +10,18 @@
         }
     },
     "keywords": [
-        "NativeScript", "camera", "gallery", "images"
+        "NativeScript",
+        "camera",
+        "gallery",
+        "images"
     ],
-    "author": "NativeScript team"
+    "author": "NativeScript team",
+    "devDependencies": {
+        "tns-core-modules": "^3.0.0 || ^3.0.0-rc.1",
+        "tns-platform-declarations": "^3.0.0 || ^3.0.0-rc.1",
+        "typescript": "^2.2.2"
+    },
+    "peerDependencies": {
+        "tns-core-modules": "^3.0.0 || ^3.0.0-rc.1"
+    }
 }

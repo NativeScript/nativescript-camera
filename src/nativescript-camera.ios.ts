@@ -178,14 +178,14 @@ export var requestPermissions = function () {
     if (authStatus === PHAuthorizationStatus.NotDetermined) {
         PHPhotoLibrary.requestAuthorization((auth) => {
             if (auth === PHAuthorizationStatus.Authorized) {
-                if (trace.enabled) {
+                if (trace.isEnabled()) {
                     trace.write("Application can access photo library assets.", trace.categories.Debug);
                 }
                 return;
             }
         })
     } else if (authStatus !== PHAuthorizationStatus.Authorized) {
-        if (trace.enabled) {
+        if (trace.isEnabled()) {
             trace.write("Application can not access photo library assets.", trace.categories.Debug);
         }
     }

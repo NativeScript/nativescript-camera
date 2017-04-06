@@ -19,7 +19,7 @@ export var takePicture = function (options?): Promise<any> {
 
             let types: typeof typesModule = require("utils/types");
             let utils: typeof utilsModule = require("utils/utils");
-            
+
             let saveToGallery;
             let reqWidth;
             let reqHeight;
@@ -39,7 +39,7 @@ export var takePicture = function (options?): Promise<any> {
 
             let takePictureIntent = new android.content.Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
             let dateStamp = createDateTimeStamp();
-            
+
             let picturePath: string;
             let nativeFile;
             let tempPictureUri;
@@ -52,7 +52,7 @@ export var takePicture = function (options?): Promise<any> {
                 picturePath = utils.ad.getApplicationContext().getExternalFilesDir(null).getAbsolutePath() + "/" + "NSIMG_" + dateStamp + ".jpg";
                 nativeFile = new java.io.File(picturePath);
             }
-            
+
             let sdkVersionInt = parseInt(platform.device.sdkVersion);
             if (sdkVersionInt >= 21) {
                 tempPictureUri = (<any>android.support.v4.content).FileProvider.getUriForFile(applicationModule.android.currentContext, applicationModule.android.nativeApp.getPackageName() + ".provider", nativeFile);
@@ -60,30 +60,30 @@ export var takePicture = function (options?): Promise<any> {
             else {
                 tempPictureUri = android.net.Uri.fromFile(nativeFile);
             }
-            
+
             takePictureIntent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, tempPictureUri);
 
             if (takePictureIntent.resolveActivity(utils.ad.getApplicationContext().getPackageManager()) != null) {
 
                 let appModule: typeof applicationModule = require("application");
 
-                let previousResult = appModule.android.onActivityResult;
-                appModule.android.onActivityResult = (requestCode: number, resultCode: number, data: android.content.Intent) => {
-                    appModule.android.onActivityResult = previousResult;
+                appModule.android.on("activityResult", (args) => {
+                    const requestCode = args.requestCode;
+                    const resultCode = args.resultCode;
 
                     if (requestCode === REQUEST_IMAGE_CAPTURE && resultCode === android.app.Activity.RESULT_OK) {
                         if (saveToGallery) {
                             try {
                                 let callback = new android.media.MediaScannerConnection.OnScanCompletedListener({
-                                    onScanCompleted: function(path, uri) {
-                                        if (trace.enabled) {
+                                    onScanCompleted: function (path, uri) {
+                                        if (trace.isEnabled()) {
                                             trace.write(`image from path ${path} has been successfully scanned!`, trace.categories.Debug);
                                         }
                                     }
                                 });
                                 android.media.MediaScannerConnection.scanFile(appModule.android.context, [picturePath], null, callback);
                             } catch (ex) {
-                                if (trace.enabled) {
+                                if (trace.isEnabled()) {
                                     trace.write(`An error occurred while scanning file ${picturePath}: ${ex.message}!`, trace.categories.Debug);
                                 }
                             }
@@ -97,7 +97,7 @@ export var takePicture = function (options?): Promise<any> {
                         };
                         resolve(asset);
                     }
-                };
+                });
 
                 appModule.android.foregroundActivity.startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
 
@@ -112,7 +112,7 @@ export var takePicture = function (options?): Promise<any> {
 
 export var isAvailable = function () {
     var utils: typeof utilsModule = require("utils/utils");
-    
+
     return utils.ad.getApplicationContext().getPackageManager().hasSystemFeature(android.content.pm.PackageManager.FEATURE_CAMERA)
 }
 
@@ -126,11 +126,11 @@ export var requestPermissions = function () {
 var createDateTimeStamp = function () {
     let result = "";
     let date = new Date();
-    result = date.getFullYear().toString() + 
-            ((date.getMonth() + 1) < 10 ? "0" + (date.getMonth() + 1).toString() : (date.getMonth() + 1).toString()) +
-            (date.getDate() < 10 ? "0" + date.getDate().toString() : date.getDate().toString()) + "_" +
-            date.getHours().toString() +
-            date.getMinutes().toString() +
-            date.getSeconds().toString();
+    result = date.getFullYear().toString() +
+        ((date.getMonth() + 1) < 10 ? "0" + (date.getMonth() + 1).toString() : (date.getMonth() + 1).toString()) +
+        (date.getDate() < 10 ? "0" + date.getDate().toString() : date.getDate().toString()) + "_" +
+        date.getHours().toString() +
+        date.getMinutes().toString() +
+        date.getSeconds().toString();
     return result;
 }
