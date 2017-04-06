@@ -5,6 +5,10 @@ SOURCE_DIR=src;
 PACK_DIR=dist/package/;
 DIST_DIR=dist;
 
+cd $SOURCE_DIR
+npm install 
+cd ..
+
 copy_package_files() {
     cp "$SOURCE_DIR"/package.json $PACK_DIR
     cp "$SOURCE_DIR"/*.md $PACK_DIR
