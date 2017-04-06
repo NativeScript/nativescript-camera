@@ -49,45 +49,47 @@ class UIImagePickerControllerDelegateImpl extends NSObject implements UIImagePic
 
     imagePickerControllerDidFinishPickingMediaWithInfo(picker, info): void {
         if (info) {
-            let creationDate: Date = new Date();
-            let picInfo = info.valueForKey(UIImagePickerControllerMediaMetadata);
-            if (picInfo) {
-                let tiff = picInfo.valueForKey("{TIFF}");
-                if (tiff) {
-                    let creationDateStr = tiff.valueForKey("DateTime");
-                    creationDate = this.createDateFromString(creationDateStr);
-                }
-            }
+            let currentDate: Date = new Date();
             let source = info.valueForKey(UIImagePickerControllerOriginalImage);
             if (source) {
                 let image = null;
                 let imageSource: typeof imageSourceModule = require("image-source");
-
                 let imageSourceResult = imageSource.fromNativeSource(source);
 
                 if (this._callback) {
                     let imageAsset: imageAssetModule.ImageAsset;
                     if (this._saveToGallery) {
-                        PHPhotoLibrary.sharedPhotoLibrary().performChangesCompletionHandler(() => {PHAssetChangeRequest.creationRequestForAssetFromImage(imageSourceResult.ios);}, (success, err) => {
-                            if (success) {
-                                let fetchOptions = PHFetchOptions.alloc().init();
-                                let sortDescriptors = NSArray.arrayWithObject(NSSortDescriptor.sortDescriptorWithKeyAscending("creationDate", false));
-                                fetchOptions.sortDescriptors = sortDescriptors;
-                                fetchOptions.predicate = NSPredicate.predicateWithFormatArgumentArray("mediaType = %d", NSArray.arrayWithObject(PHAssetMediaType.Image));
-                                let fetchResult = PHAsset.fetchAssetsWithOptions(fetchOptions);
-                                for(let i = 0; i < fetchResult.count; i++) {
-                                    if (creationDate.valueOf() < (<PHAsset>fetchResult[i]).creationDate.valueOf()) {
-                                        let asset = <PHAsset>fetchResult[i];
-                                        imageAsset = new imageAssetModule.ImageAsset(asset);
-                                        break;
-                                    }
-                                }
-                                this.setImageAssetAndCallCallback(imageAsset);
-                            } else {
-                                trace.write("An error ocured while saving image to gallery: " + err , trace.categories.Error, trace.messageType.error);
-                            }
+                        PHPhotoLibrary.sharedPhotoLibrary().performChangesCompletionHandler(
+                            () => {
+                                PHAssetChangeRequest.creationRequestForAssetFromImage(imageSourceResult.ios);
+                            },
+                            (success, err) => {
+                                if (success) {
+                                    let fetchOptions = PHFetchOptions.alloc().init();
+                                    let sortDescriptors = NSArray.arrayWithObject(NSSortDescriptor.sortDescriptorWithKeyAscending("creationDate", false));
+                                    fetchOptions.sortDescriptors = sortDescriptors;
+                                    fetchOptions.predicate = NSPredicate.predicateWithFormatArgumentArray("mediaType = %d", NSArray.arrayWithObject(PHAssetMediaType.Image));
+                                    let fetchResult = PHAsset.fetchAssetsWithOptions(fetchOptions);
 
-                        });
+                                    if (fetchResult.count > 0) {
+                                        // Take last picture
+                                        let asset = <PHAsset>fetchResult[0];
+
+                                        const dateDiff = asset.creationDate.valueOf() - currentDate.valueOf();
+                                        if (Math.abs(dateDiff) > 1000) {
+                                            // Image assets create date is rounded when asset is created. 
+                                            // Display waring if the asset was created more than 1s before/after the current date.
+                                            console.warn("Image asset returned was created more than 1 second ago");
+                                        }
+                                        imageAsset = new imageAssetModule.ImageAsset(asset);
+                                        this.setImageAssetAndCallCallback(imageAsset);
+                                    }
+
+                                } else {
+                                    trace.write("An error ocurred while saving image to gallery: " + err, trace.categories.Error, trace.messageType.error);
+                                }
+
+                            });
                     }
                     else {
                         imageAsset = new imageAssetModule.ImageAsset(imageSourceResult.ios);
