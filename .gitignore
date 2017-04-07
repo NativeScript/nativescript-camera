@@ -2,6 +2,7 @@
 logs
 *.log
 npm-debug.log*
+.DS_Store
 
 # Runtime data
 pids
@@ -40,6 +41,7 @@ jspm_packages
 #Exclude all javascript (js) and (js.map) files from source code
 **/*.js
 **/*.map
+!examples/CameraTestAngular/webpack.*.js
 
 # Dist directory where create script produces plugin installation files
 dist
