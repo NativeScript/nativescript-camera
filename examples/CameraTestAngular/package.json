@@ -42,6 +42,7 @@
     "nativescript-css-loader": "~0.26.0",
     "nativescript-dev-android-snapshot": "^0.*.*",
     "nativescript-dev-typescript": "~0.4.0",
+    "nativescript-dev-webpack": "^0.3.7",
     "raw-loader": "~0.5.1",
     "resolve-url-loader": "~1.6.0",
     "typescript": "~2.2.1",
