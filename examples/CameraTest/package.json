@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "nativescript-camera": "*",
-    "tns-core-modules": "~3.0.0 || ^3.0.0-rc.1"
+    "tns-core-modules": "^3.0.0 || ^3.0.0-rc.1"
   },
   "devDependencies": {
     "babel-traverse": "6.15.0",
