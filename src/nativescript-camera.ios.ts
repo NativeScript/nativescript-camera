@@ -149,12 +149,25 @@ export var takePicture = function (options): Promise<any> {
         }
         imagePickerController.delegate = listener;
 
-        let sourceType = UIImagePickerControllerSourceType.Camera;
+        let sourceType;
+        switch (options.sourceType) {
+            case "PhotoLibrary":
+                //console.log("Choosing PhotoLibrary");
+                sourceType = UIImagePickerControllerSourceType.PhotoLibrary; break;
+            case "SavedPhotosAlbum":
+                //console.log("Choosing SavedPhotosAlbum");
+                sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum; break;
+            case "Camera": default:
+                //console.log("Choosing Camera");
+                sourceType = UIImagePickerControllerSourceType.Camera; break;
+        }
         let mediaTypes = UIImagePickerController.availableMediaTypesForSourceType(sourceType);
 
         if (mediaTypes) {
             imagePickerController.mediaTypes = mediaTypes;
             imagePickerController.sourceType = sourceType;
+        } else {
+            console.log("There are no mediaTypes available for the source type: " + options.sourceType);
         }
 
         imagePickerController.modalPresentationStyle = UIModalPresentationStyle.CurrentContext;
