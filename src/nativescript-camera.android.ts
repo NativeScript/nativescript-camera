@@ -87,7 +87,17 @@ export var takePicture = function (options?): Promise<any> {
                                     trace.write(`An error occurred while scanning file ${picturePath}: ${ex.message}!`, trace.categories.Debug);
                                 }
                             }
-                        };
+                        }
+
+                        let exif = new android.media.ExifInterface(picturePath);
+                        let orientation = exif.getAttributeInt(android.media.ExifInterface.TAG_ORIENTATION, android.media.ExifInterface.ORIENTATION_NORMAL);
+                        if (orientation === android.media.ExifInterface.ORIENTATION_ROTATE_90) {
+                            rotateBitmap(picturePath, 90);
+                        } else if (orientation === android.media.ExifInterface.ORIENTATION_ROTATE_180) {
+                            rotateBitmap(picturePath, 180);
+                        } else if (orientation === android.media.ExifInterface.ORIENTATION_ROTATE_270) {
+                            rotateBitmap(picturePath, 270);
+                        }
 
                         let asset = new imageAssetModule.ImageAsset(picturePath);
                         asset.options = {
@@ -133,4 +143,22 @@ var createDateTimeStamp = function () {
         date.getMinutes().toString() +
         date.getSeconds().toString();
     return result;
+}
+
+var rotateBitmap = function (picturePath, angle) {
+    try {
+        let matrix = new android.graphics.Matrix();
+        matrix.postRotate(angle);
+        let bmOptions = new android.graphics.BitmapFactory.Options();
+        let oldBitmap = android.graphics.BitmapFactory.decodeFile(picturePath, bmOptions);
+        let finalBitmap = android.graphics.Bitmap.createBitmap(oldBitmap, 0, 0, oldBitmap.getWidth(), oldBitmap.getHeight(), matrix, true);
+        let out = new java.io.FileOutputStream(picturePath);
+        finalBitmap.compress(android.graphics.Bitmap.CompressFormat.JPEG, 100, out);
+        out.flush();
+        out.close();
+    } catch (ex) {
+        if (trace.isEnabled()) {
+            trace.write(`An error occurred while rotating file ${picturePath} (using the original one): ${ex.message}!`, trace.categories.Debug);
+        }
+    }
 }
