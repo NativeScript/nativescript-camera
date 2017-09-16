@@ -63,6 +63,10 @@ export var takePicture = function (options?): Promise<any> {
 
             takePictureIntent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, tempPictureUri);
 
+            if (options && options.cameraFacing === "front") {
+                takePictureIntent.putExtra("android.intent.extras.CAMERA_FACING", android.hardware.Camera.CameraInfo.CAMERA_FACING_FRONT);
+            }
+
             if (takePictureIntent.resolveActivity(utils.ad.getApplicationContext().getPackageManager()) != null) {
 
                 let appModule: typeof applicationModule = require("application");
