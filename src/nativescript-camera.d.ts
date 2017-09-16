@@ -44,6 +44,7 @@ export interface CameraOptions {
 
     /**
      * The initial camera. Default "rear".
+     * The current implementation doesn't work on all Android devices, in which case it falls back to the default behavior.
      */
     cameraFacing?: "front" | "rear";
 }
