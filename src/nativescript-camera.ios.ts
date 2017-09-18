@@ -155,6 +155,7 @@ export var takePicture = function (options): Promise<any> {
         if (mediaTypes) {
             imagePickerController.mediaTypes = mediaTypes;
             imagePickerController.sourceType = sourceType;
+            imagePickerController.cameraDevice = options && options.cameraFacing === "front" ? UIImagePickerControllerCameraDevice.Front : UIImagePickerControllerCameraDevice.Rear;
         }
 
         imagePickerController.modalPresentationStyle = UIModalPresentationStyle.CurrentContext;

@@ -41,4 +41,10 @@ export interface CameraOptions {
      * Defines if camera picture should be copied to photo Gallery (Android) or Photos (iOS) 
      */
     saveToGallery?: boolean;
+
+    /**
+     * The initial camera. Default "rear".
+     * The current implementation doesn't work on all Android devices, in which case it falls back to the default behavior.
+     */
+    cameraFacing?: "front" | "rear";
 }
