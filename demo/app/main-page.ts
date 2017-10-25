@@ -10,7 +10,7 @@ trace.addCategories(trace.categories.Debug);
 trace.enable();
 
 export function navigatingTo(args: EventData) {
-    var page = <Page>args.object;
+    let page = <Page>args.object;
     let picturePath = null;
 
     page.bindingContext = fromObject({cameraImage: picturePath, saveToGallery: true});
@@ -30,7 +30,7 @@ export function onTakePictureTap(args: EventData) {
                 console.log(`Size: ${source.width}x${source.height}`);
             });
             page.bindingContext.set("cameraImage", imageAsset);
-        }, 
+        },
         (err) => {
             console.log("Error -> " + err.message);
         });

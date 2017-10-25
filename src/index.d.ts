@@ -7,7 +7,7 @@ import imageAsset = require("tns-core-modules/image-asset/image-asset");
 export function takePicture(options?: CameraOptions): Promise<imageAsset.ImageAsset>;
 
 /**
- * Check required permissions for using device camera. 
+ * Check required permissions for using device camera.
  */
 export function requestPermissions();
 
@@ -38,7 +38,7 @@ export interface CameraOptions {
     keepAspectRatio?: boolean;
 
     /**
-     * Defines if camera picture should be copied to photo Gallery (Android) or Photos (iOS) 
+     * Defines if camera picture should be copied to photo Gallery (Android) or Photos (iOS)
      */
     saveToGallery?: boolean;
 
