@@ -1,11 +1,11 @@
-import { EventData, Observable, fromObject } from "data/observable";
-import { Page } from "ui/page";
-import { View } from 'ui/core/view';
+import { EventData, Observable, fromObject } from "tns-core-modules/data/observable";
+import { Page } from "tns-core-modules/ui/page";
+import { View } from 'tns-core-modules/ui/core/view';
 import { takePicture, requestPermissions } from "nativescript-camera";
-import * as appModule from "application";
-import * as imageSourceModule from "image-source";
+import * as appModule from "tns-core-modules/application";
+import * as imageSourceModule from "tns-core-modules/image-source";
 
-import * as trace from "trace";
+import * as trace from "tns-core-modules/trace";
 trace.addCategories(trace.categories.Debug);
 trace.enable();
 
