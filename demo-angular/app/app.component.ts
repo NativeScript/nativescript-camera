@@ -17,10 +17,10 @@ export class AppComponent {
             let source = new ImageSource();
             source.fromAsset(imageAsset).then((source) => {
                 console.log(`Size: ${source.width}x${source.height}`);
-            })
+            });
             this.cameraImage = imageAsset;
         }, (error) => {
-            console.log("Error: " + error)
+            console.log("Error: " + error);
         });
     }
 

@@ -77,7 +77,7 @@ class UIImagePickerControllerDelegateImpl extends NSObject implements UIImagePic
 
                                         const dateDiff = asset.creationDate.valueOf() - currentDate.valueOf();
                                         if (Math.abs(dateDiff) > 1000) {
-                                            // Image assets create date is rounded when asset is created. 
+                                            // Image assets create date is rounded when asset is created.
                                             // Display waring if the asset was created more than 1s before/after the current date.
                                             console.warn("Image asset returned was created more than 1 second ago");
                                         }
@@ -117,9 +117,9 @@ class UIImagePickerControllerDelegateImpl extends NSObject implements UIImagePic
     }
 }
 
-var listener;
+let listener;
 
-export var takePicture = function (options): Promise<any> {
+export let takePicture = function (options): Promise<any> {
     return new Promise((resolve, reject) => {
         listener = null;
         let imagePickerController = UIImagePickerController.new();
@@ -140,9 +140,11 @@ export var takePicture = function (options): Promise<any> {
         }
 
         if (reqWidth && reqHeight) {
-            listener = UIImagePickerControllerDelegateImpl.new().initWithCallbackAndOptions(resolve, { width: reqWidth, height: reqHeight, keepAspectRatio: keepAspectRatio, saveToGallery: saveToGallery });
+            listener = UIImagePickerControllerDelegateImpl.new().initWithCallbackAndOptions(resolve,
+                { width: reqWidth, height: reqHeight, keepAspectRatio: keepAspectRatio, saveToGallery: saveToGallery });
         } else if (saveToGallery) {
-            listener = UIImagePickerControllerDelegateImpl.new().initWithCallbackAndOptions(resolve, { saveToGallery: saveToGallery, keepAspectRatio: keepAspectRatio });
+            listener = UIImagePickerControllerDelegateImpl.new().initWithCallbackAndOptions(resolve,
+                { saveToGallery: saveToGallery, keepAspectRatio: keepAspectRatio });
         }
         else {
             listener = UIImagePickerControllerDelegateImpl.new().initWithCallback(resolve);
@@ -155,7 +157,8 @@ export var takePicture = function (options): Promise<any> {
         if (mediaTypes) {
             imagePickerController.mediaTypes = mediaTypes;
             imagePickerController.sourceType = sourceType;
-            imagePickerController.cameraDevice = options && options.cameraFacing === "front" ? UIImagePickerControllerCameraDevice.Front : UIImagePickerControllerCameraDevice.Rear;
+            imagePickerController.cameraDevice = options && options.cameraFacing === "front" ?
+                UIImagePickerControllerCameraDevice.Front : UIImagePickerControllerCameraDevice.Rear;
         }
 
         imagePickerController.modalPresentationStyle = UIModalPresentationStyle.CurrentContext;
@@ -170,13 +173,13 @@ export var takePicture = function (options): Promise<any> {
             }
         }
     });
-}
+};
 
-export var isAvailable = function () {
+export let isAvailable = function () {
     return UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera);
-}
+};
 
-export var requestPermissions = function () {
+export let requestPermissions = function () {
     let authStatus = PHPhotoLibrary.authorizationStatus();
     if (authStatus === PHAuthorizationStatus.NotDetermined) {
         PHPhotoLibrary.requestAuthorization((auth) => {
@@ -186,10 +189,10 @@ export var requestPermissions = function () {
                 }
                 return;
             }
-        })
+        });
     } else if (authStatus !== PHAuthorizationStatus.Authorized) {
         if (trace.isEnabled()) {
             trace.write("Application can not access photo library assets.", trace.categories.Debug);
         }
     }
-}
+};

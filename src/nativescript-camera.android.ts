@@ -6,13 +6,14 @@ import * as imageAssetModule from "image-asset";
 import * as trace from "trace";
 import * as platform from "platform";
 
-var REQUEST_IMAGE_CAPTURE = 3453;
-var REQUEST_REQUIRED_PERMISSIONS = 1234;
+let REQUEST_IMAGE_CAPTURE = 3453;
+let REQUEST_REQUIRED_PERMISSIONS = 1234;
 
-export var takePicture = function (options?): Promise<any> {
+export let takePicture = function (options?): Promise<any> {
     return new Promise((resolve, reject) => {
         try {
-            if ((<any>android.support.v4.content.ContextCompat).checkSelfPermission(applicationModule.android.currentContext, (<any>android).Manifest.permission.CAMERA) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+            if ((<any>android.support.v4.content.ContextCompat).checkSelfPermission(applicationModule.android.currentContext,
+                (<any>android).Manifest.permission.CAMERA) !== android.content.pm.PackageManager.PERMISSION_GRANTED) {
                 reject(new Error("Application does not have permissions to use Camera"));
                 return;
             }
@@ -33,7 +34,8 @@ export var takePicture = function (options?): Promise<any> {
                 shouldKeepAspectRatio = types.isNullOrUndefined(options.keepAspectRatio) ? true : options.keepAspectRatio;
             }
 
-            if ((<any>android.support.v4.content.ContextCompat).checkSelfPermission(applicationModule.android.currentContext, (<any>android).Manifest.permission.WRITE_EXTERNAL_STORAGE) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+            if ((<any>android.support.v4.content.ContextCompat).checkSelfPermission(applicationModule.android.currentContext,
+                (<any>android).Manifest.permission.WRITE_EXTERNAL_STORAGE) !== android.content.pm.PackageManager.PERMISSION_GRANTED) {
                 saveToGallery = false;
             }
 
@@ -49,13 +51,15 @@ export var takePicture = function (options?): Promise<any> {
                     android.os.Environment.DIRECTORY_DCIM).getAbsolutePath() + "/Camera/" + "NSIMG_" + dateStamp + ".jpg";
                 nativeFile = new java.io.File(picturePath);
             } else {
-                picturePath = utils.ad.getApplicationContext().getExternalFilesDir(null).getAbsolutePath() + "/" + "NSIMG_" + dateStamp + ".jpg";
+                picturePath = utils.ad.getApplicationContext().getExternalFilesDir(null)
+                    .getAbsolutePath() + "/" + "NSIMG_" + dateStamp + ".jpg";
                 nativeFile = new java.io.File(picturePath);
             }
 
             let sdkVersionInt = parseInt(platform.device.sdkVersion);
             if (sdkVersionInt >= 21) {
-                tempPictureUri = (<any>android.support.v4.content).FileProvider.getUriForFile(applicationModule.android.currentContext, applicationModule.android.nativeApp.getPackageName() + ".provider", nativeFile);
+                tempPictureUri = (<any>android.support.v4.content).FileProvider.getUriForFile(applicationModule.android.currentContext,
+                    applicationModule.android.nativeApp.getPackageName() + ".provider", nativeFile);
             }
             else {
                 tempPictureUri = android.net.Uri.fromFile(nativeFile);
@@ -94,7 +98,8 @@ export var takePicture = function (options?): Promise<any> {
                         }
 
                         let exif = new android.media.ExifInterface(picturePath);
-                        let orientation = exif.getAttributeInt(android.media.ExifInterface.TAG_ORIENTATION, android.media.ExifInterface.ORIENTATION_NORMAL);
+                        let orientation = exif.getAttributeInt(android.media.ExifInterface.TAG_ORIENTATION,
+                            android.media.ExifInterface.ORIENTATION_NORMAL);
                         if (orientation === android.media.ExifInterface.ORIENTATION_ROTATE_90) {
                             rotateBitmap(picturePath, 90);
                         } else if (orientation === android.media.ExifInterface.ORIENTATION_ROTATE_180) {
@@ -122,22 +127,24 @@ export var takePicture = function (options?): Promise<any> {
             }
         }
     });
-}
+};
 
-export var isAvailable = function () {
-    var utils: typeof utilsModule = require("utils/utils");
+export let isAvailable = function () {
+    let utils: typeof utilsModule = require("utils/utils");
 
-    return utils.ad.getApplicationContext().getPackageManager().hasSystemFeature(android.content.pm.PackageManager.FEATURE_CAMERA)
-}
+    return utils.ad.getApplicationContext().getPackageManager().hasSystemFeature(android.content.pm.PackageManager.FEATURE_CAMERA);
+};
 
-export var requestPermissions = function () {
-    if ((<any>android.support.v4.content.ContextCompat).checkSelfPermission(applicationModule.android.currentContext, (<any>android).Manifest.permission.WRITE_EXTERNAL_STORAGE) != android.content.pm.PackageManager.PERMISSION_GRANTED ||
-        (<any>android.support.v4.content.ContextCompat).checkSelfPermission(applicationModule.android.currentContext, (<any>android).Manifest.permission.CAMERA) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+export let requestPermissions = function () {
+    if ((<any>android.support.v4.content.ContextCompat).checkSelfPermission(applicationModule.android.currentContext,
+        (<any>android).Manifest.permission.WRITE_EXTERNAL_STORAGE) !== android.content.pm.PackageManager.PERMISSION_GRANTED ||
+        (<any>android.support.v4.content.ContextCompat).checkSelfPermission(applicationModule.android.currentContext,
+        (<any>android).Manifest.permission.CAMERA) !== android.content.pm.PackageManager.PERMISSION_GRANTED) {
         (<any>android.support.v4.app.ActivityCompat).requestPermissions(applicationModule.android.currentContext, [(<any>android).Manifest.permission.CAMERA, (<any>android).Manifest.permission.WRITE_EXTERNAL_STORAGE], REQUEST_REQUIRED_PERMISSIONS);
     }
-}
+};
 
-var createDateTimeStamp = function () {
+let createDateTimeStamp = function () {
     let result = "";
     let date = new Date();
     result = date.getFullYear().toString() +
@@ -147,9 +154,9 @@ var createDateTimeStamp = function () {
         date.getMinutes().toString() +
         date.getSeconds().toString();
     return result;
-}
+};
 
-var rotateBitmap = function (picturePath, angle) {
+let rotateBitmap = function (picturePath, angle) {
     try {
         let matrix = new android.graphics.Matrix();
         matrix.postRotate(angle);
@@ -162,7 +169,8 @@ var rotateBitmap = function (picturePath, angle) {
         out.close();
     } catch (ex) {
         if (trace.isEnabled()) {
-            trace.write(`An error occurred while rotating file ${picturePath} (using the original one): ${ex.message}!`, trace.categories.Debug);
+            trace.write(`An error occurred while rotating file ${picturePath} (using the original one): ${ex.message}!`,
+                trace.categories.Debug);
         }
     }
-}
+};
