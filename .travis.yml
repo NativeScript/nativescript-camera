@@ -1,4 +1,4 @@
-ccbranches:
+branches:
   only: 
     - master
 matrix:

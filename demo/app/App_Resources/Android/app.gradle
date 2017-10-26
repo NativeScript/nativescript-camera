@@ -8,7 +8,7 @@
 android {  
   defaultConfig {  
     generatedDensities = []
-    applicationId = "org.nativescript.CameraTest"  
+    applicationId = "org.nativescript.demo"  
   }  
   aaptOptions {  
     additionalParameters "--no-version-vectors"  
