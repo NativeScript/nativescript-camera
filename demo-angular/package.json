@@ -4,7 +4,7 @@
   "readme": "NativeScript Application",
   "repository": "<fill-your-repository-here>",
   "nativescript": {
-    "id": "org.nativescript.CameraTestAngular",
+    "id": "org.nativescript.demo.angular",
     "tns-ios": {
       "version": "3.1.0"
     },
@@ -18,8 +18,8 @@
     "ns-bundle": "ns-bundle",
     "publish-ios-bundle": "npm run ns-bundle --ios --publish-app",
     "generate-android-snapshot": "generate-android-snapshot --targetArchs arm,arm64,ia32 --install",
-    "start-android-bundle": "npm run ns-bundle --android --start-app",
-    "start-ios-bundle": "npm run ns-bundle --ios --start-app",
+    "start-android-bundle": "npm run ns-bundle --android --run-app",
+    "start-ios-bundle": "npm run ns-bundle --ios --run-app",
     "build-android-bundle": "npm run ns-bundle --android --build-app",
     "build-ios-bundle": "npm run ns-bundle --ios --build-app"
   },
@@ -43,21 +43,23 @@
   },
   "devDependencies": {
     "@angular/compiler-cli": "~4.0.0",
-    "@ngtools/webpack": "1.2.13",
+    "@ngtools/webpack": "~1.6.0",
     "babel-traverse": "6.23.1",
     "babel-types": "6.23.0",
     "babylon": "6.16.1",
-    "copy-webpack-plugin": "^3.0.1",
-    "extract-text-webpack-plugin": "~2.0.0-beta.4",
+    "copy-webpack-plugin": "~4.0.1",
+    "extract-text-webpack-plugin": "~3.0.0",
     "lazy": "1.0.11",
     "nativescript-css-loader": "~0.26.0",
     "nativescript-dev-typescript": "~0.4.0",
-    "nativescript-dev-webpack": "^0.3.7",
+    "nativescript-dev-webpack": "^0.8.0",
+    "nativescript-worker-loader": "~0.8.1",
     "raw-loader": "~0.5.1",
-    "resolve-url-loader": "~1.6.0",
+    "resolve-url-loader": "~2.1.0",
     "tslint": "^5.0.0",
-    "typescript": "~2.2.1",
-    "webpack": "2.2.0",
-    "webpack-sources": "~0.1.3"
+    "typescript": "~2.3.4",
+    "webpack": "~3.2.0",
+    "webpack-bundle-analyzer": "^2.8.2",
+    "webpack-sources": "~1.0.1"
   }
 }
