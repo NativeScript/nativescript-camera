@@ -8,7 +8,7 @@ matrix:
       os: linux
       node_js: "6"
       script: cd src && npm run ci.tslint && cd ../demo && npm run ci.tslint && cd ../demo-angular && npm run ci.tslint
-    - stage: "WebPack"
+    - stage: "Build and WebPack"
       os: osx
       env:
         - Platform="iOS"
@@ -24,8 +24,7 @@ matrix:
       jdk: oraclejdk8
       before_install: nvm install 6.10.3
       script: cd demo && npm run build.plugin && npm i && npm run build-android-bundle && cd ../demo-angular && npm i && npm run build-android-bundle
-    - stage: "Build and Test"
-      env: 
+    - env: 
         - BuildAndroid="26"
       language: android
       os: linux
