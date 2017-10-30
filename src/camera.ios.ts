@@ -156,9 +156,11 @@ export let takePicture = function (options): Promise<any> {
 
         let sourceType = UIImagePickerControllerSourceType.Camera;
         let mediaTypes = UIImagePickerController.availableMediaTypesForSourceType(sourceType);
-
-        if (mediaTypes) {
-            imagePickerController.mediaTypes = mediaTypes;
+        let imageMediaType = "public.image";
+        if (mediaTypes && mediaTypes.containsObject(imageMediaType)) {
+            let mediaTypesArray = new NSMutableArray<string>({ capacity: 1 });
+            mediaTypesArray.addObject(imageMediaType);
+            imagePickerController.mediaTypes = mediaTypesArray;
             imagePickerController.sourceType = sourceType;
             imagePickerController.cameraDevice = options && options.cameraFacing === "front" ?
                 UIImagePickerControllerCameraDevice.Front : UIImagePickerControllerCameraDevice.Rear;
