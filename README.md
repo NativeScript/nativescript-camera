@@ -38,6 +38,25 @@ camera.requestPermissions();
 
 > Note: Older versions won't be affected by the usage of the requestPermissions method.
 
+## API
+
+### Methods
+
+| Method | Description |
+| --- | --- |
+| takePicture(options?: CameraOptions) | Take a photo using the camera with an optional parameter for setting different camera options. |
+| requestPermissions() | Check required permissions for using device camera. |
+| isAvailable() | Is the device camera available to use. |
+
+### CameraOptions
+| Property | Default | Description |
+| --- | --- | --- |
+| width | 0 | Defines the desired width (in device independent pixels) of the taken image. It should be used with height property. If `keepAspectRatio` actual image width could be different in order to keep the aspect ratio of the original camera image. The actual image width will be greater than requested if the display density of the device is higher (than 1) (full HD+ resolutions). |
+| height | 0 | Defines the desired height (in device independent pixels) of the taken image. It should be used with width property. If `keepAspectRatio` actual image width could be different in order to keep the aspect ratio of the original camera image. The actual image height will be greater than requested if the display density of the device is higher (than 1) (full HD+ resolutions). |
+| keepAspectRatio | true | Defines if camera picture aspect ratio should be kept during picture resizing. This property could affect width or height return values. |
+| saveToGallery | false | Defines if camera picture should be copied to photo Gallery (Android) or Photos (iOS) |
+| cameraFacing | rear | The initial camera facing. |
+
 ## Usage 
 
 ### Requesting permissions
