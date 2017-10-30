@@ -3,7 +3,7 @@
         <Label text="saveToGallery"></Label>
         <Switch [(ngModel)]="saveToGallery"></Switch>
     </StackLayout>
-    <Image row="1" [src]="cameraImage" stretch="aspectFit" margin="10"></Image>
+    <Image row="1" [src]="cameraImage" stretch="fill" margin="10"></Image>
     <StackLayout orientation="horizontal" row="2" padding="10">
         <Button text="Take Picture" (tap)='onTakePictureTap($event)'></Button>
         <Button text="Request Permissions" (tap)='onRequestPermissionsTap()'></Button>

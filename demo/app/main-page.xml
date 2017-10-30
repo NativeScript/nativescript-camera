@@ -4,7 +4,7 @@
             <Label text="saveToGallery" />
             <Switch checked="{{ saveToGallery }}"/>
         </StackLayout>
-        <Image row="1" src="{{ cameraImage }}" id="image" stretch="aspectFill" margin="10"/>
+        <Image row="1" src="{{ cameraImage }}" id="image" stretch="fill" margin="10"/>
         <StackLayout orientation="horizontal" row="2" padding="10">
             <Button text="Take Picture" tap="onTakePictureTap" />
             <Button text="Request Permissions" tap="onRequestPermissionsTap" />

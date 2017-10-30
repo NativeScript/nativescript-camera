@@ -23,7 +23,7 @@ export function onRequestPermissionsTap(args: EventData) {
 export function onTakePictureTap(args: EventData) {
     let page = <Page>(<View>args.object).page;
     let saveToGallery = page.bindingContext.get("saveToGallery");
-    takePicture({width: 180, height: 180, keepAspectRatio: false, saveToGallery: saveToGallery}).
+    takePicture({width: 180, height: 180, keepAspectRatio: true, saveToGallery: saveToGallery}).
         then((imageAsset) => {
             let source = new imageSourceModule.ImageSource();
             source.fromAsset(imageAsset).then((source) => {

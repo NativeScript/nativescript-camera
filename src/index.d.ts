@@ -33,7 +33,7 @@ export interface CameraOptions {
 
     /**
      * Defines if camera picture aspect ratio should be kept during picture resizing.
-     * This property could affect width or heigth return values.
+     * This property could affect width or height return values.
      */
     keepAspectRatio?: boolean;
 

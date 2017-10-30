@@ -12,7 +12,7 @@ export class AppComponent {
     public cameraImage: ImageAsset;
 
     onTakePictureTap(args) {
-        takePicture({ width: 180, height: 180, keepAspectRatio: false, saveToGallery: this.saveToGallery })
+        takePicture({ width: 180, height: 180, keepAspectRatio: true, saveToGallery: this.saveToGallery })
         .then((imageAsset) => {
             let source = new ImageSource();
             source.fromAsset(imageAsset).then((source) => {
