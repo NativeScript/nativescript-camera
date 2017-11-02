@@ -12,19 +12,22 @@ class UIImagePickerControllerDelegateImpl extends NSObject implements UIImagePic
     }
 
     private _callback: (result?) => void;
+    private _errorCallback: (result?) => void;
 
     private _width: number;
     private _height: number;
     private _keepAspectRatio: boolean;
     private _saveToGallery: boolean;
 
-    public initWithCallback(callback: (result?) => void): UIImagePickerControllerDelegateImpl {
+    public initWithCallback(callback: (result?) => void,errorCallback: (result?) => void): UIImagePickerControllerDelegateImpl {
         this._callback = callback;
+        this._errorCallback = errorCallback;
         return this;
     }
 
-    public initWithCallbackAndOptions(callback: (result?) => void, options?): UIImagePickerControllerDelegateImpl {
+    public initWithCallbackAndOptions(callback: (result?) => void,errorCallback: (result?) => void, options?): UIImagePickerControllerDelegateImpl {
         this._callback = callback;
+        this._errorCallback = errorCallback;
         if (options) {
             this._width = options.width;
             this._height = options.height;
@@ -117,6 +120,7 @@ class UIImagePickerControllerDelegateImpl extends NSObject implements UIImagePic
     imagePickerControllerDidCancel(picker): void {
         picker.presentingViewController.dismissViewControllerAnimatedCompletion(true, null);
         listener = null;
+        this._errorCallback(new Error("cancelled"));
     }
 }
 
@@ -144,13 +148,13 @@ export let takePicture = function (options): Promise<any> {
 
         if (reqWidth && reqHeight) {
             listener = UIImagePickerControllerDelegateImpl.new().initWithCallbackAndOptions(
-                resolve, { width: reqWidth, height: reqHeight, keepAspectRatio: keepAspectRatio, saveToGallery: saveToGallery });
+                resolve, reject, { width: reqWidth, height: reqHeight, keepAspectRatio: keepAspectRatio, saveToGallery: saveToGallery });
         } else if (saveToGallery) {
             listener = UIImagePickerControllerDelegateImpl.new().initWithCallbackAndOptions(
-                resolve, { saveToGallery: saveToGallery, keepAspectRatio: keepAspectRatio });
+                resolve,reject, { saveToGallery: saveToGallery, keepAspectRatio: keepAspectRatio });
         }
         else {
-            listener = UIImagePickerControllerDelegateImpl.new().initWithCallback(resolve);
+            listener = UIImagePickerControllerDelegateImpl.new().initWithCallback(resolve,reject);
         }
         imagePickerController.delegate = listener;
 
