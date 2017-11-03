@@ -82,6 +82,9 @@ export let takePicture = function (options?): Promise<any> {
 
                 let appModule: typeof applicationModule = require("tns-core-modules/application");
 
+                // Remove previous listeners if any
+                appModule.android.off("activityResult");
+                
                 appModule.android.on("activityResult", (args) => {
                     const requestCode = args.requestCode;
                     const resultCode = args.resultCode;
@@ -125,6 +128,9 @@ export let takePicture = function (options?): Promise<any> {
                             keepAspectRatio: shouldKeepAspectRatio
                         };
                         resolve(asset);
+                    } else if (resultCode === android.app.Activity.RESULT_CANCELED) {
+                        // User cancelled the image capture
+                        reject("cancelled");
                     }
                 });
 
