@@ -84,7 +84,7 @@ export let takePicture = function (options?): Promise<any> {
 
                 // Remove previous listeners if any
                 appModule.android.off("activityResult");
-                
+
                 appModule.android.on("activityResult", (args) => {
                     const requestCode = args.requestCode;
                     const resultCode = args.resultCode;
