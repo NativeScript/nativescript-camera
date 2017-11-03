@@ -19,13 +19,13 @@ class UIImagePickerControllerDelegateImpl extends NSObject implements UIImagePic
     private _keepAspectRatio: boolean;
     private _saveToGallery: boolean;
 
-    public initWithCallback(callback: (result?) => void,errorCallback: (result?) => void): UIImagePickerControllerDelegateImpl {
+    public initWithCallback(callback: (result?) => void, errorCallback: (result?) => void): UIImagePickerControllerDelegateImpl {
         this._callback = callback;
         this._errorCallback = errorCallback;
         return this;
     }
 
-    public initWithCallbackAndOptions(callback: (result?) => void,errorCallback: (result?) => void, options?): UIImagePickerControllerDelegateImpl {
+    public initWithCallbackAndOptions(callback: (result?) => void, errorCallback: (result?) => void, options?): UIImagePickerControllerDelegateImpl {
         this._callback = callback;
         this._errorCallback = errorCallback;
         if (options) {
@@ -151,10 +151,10 @@ export let takePicture = function (options): Promise<any> {
                 resolve, reject, { width: reqWidth, height: reqHeight, keepAspectRatio: keepAspectRatio, saveToGallery: saveToGallery });
         } else if (saveToGallery) {
             listener = UIImagePickerControllerDelegateImpl.new().initWithCallbackAndOptions(
-                resolve,reject, { saveToGallery: saveToGallery, keepAspectRatio: keepAspectRatio });
+                resolve, reject, { saveToGallery: saveToGallery, keepAspectRatio: keepAspectRatio });
         }
         else {
-            listener = UIImagePickerControllerDelegateImpl.new().initWithCallback(resolve,reject);
+            listener = UIImagePickerControllerDelegateImpl.new().initWithCallback(resolve, reject);
         }
         imagePickerController.delegate = listener;
 
