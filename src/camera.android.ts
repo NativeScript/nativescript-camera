@@ -125,6 +125,9 @@ export let takePicture = function (options?): Promise<any> {
                             keepAspectRatio: shouldKeepAspectRatio
                         };
                         resolve(asset);
+                    } else if (resultCode === android.app.Activity.RESULT_CANCELED) {
+                        // User cancelled the image capture
+                        reject(new Error("cancelled"));
                     }
                 });
 
