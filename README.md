@@ -100,7 +100,7 @@ camera.takePicture()
 ```
 ``` TypeScript
 import { Image } from "ui/image";
-camera.takePicture({).
+camera.takePicture().
     then((imageAsset) => {
         console.log("Result is an image asset instance");
         var image = new Image();
