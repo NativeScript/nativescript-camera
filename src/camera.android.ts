@@ -156,10 +156,10 @@ export let isAvailable = function () {
 };
 
 export let requestPermissions = function () {
-		return permissions.requestPermissions([
-			(<any>android).Manifest.permission.WRITE_EXTERNAL_STORAGE,
-			(<any>android).Manifest.permission.CAMERA
-		]);
+    return permissions.requestPermissions([
+      (<any>android).Manifest.permission.WRITE_EXTERNAL_STORAGE,
+      (<any>android).Manifest.permission.CAMERA
+    ]);
 };
 
 let createDateTimeStamp = function () {
