@@ -40,6 +40,9 @@
         "images"
     ],
     "author": "NativeScript team",
+    "dependencies": {
+      "nativescript-permissions": "^1.2.3"
+    },
     "devDependencies": {
         "tns-core-modules": "^3.0.0",
         "tns-platform-declarations": "^3.0.0",

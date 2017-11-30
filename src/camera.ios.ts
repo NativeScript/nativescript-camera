@@ -189,19 +189,38 @@ export let isAvailable = function () {
 };
 
 export let requestPermissions = function () {
-    let authStatus = PHPhotoLibrary.authorizationStatus();
-    if (authStatus === PHAuthorizationStatus.NotDetermined) {
-        PHPhotoLibrary.requestAuthorization((auth) => {
-            if (auth === PHAuthorizationStatus.Authorized) {
-                if (trace.isEnabled()) {
-                    trace.write("Application can access photo library assets.", trace.categories.Debug);
-                }
-                return;
-            }
-        });
-    } else if (authStatus !== PHAuthorizationStatus.Authorized) {
-        if (trace.isEnabled()) {
-            trace.write("Application can not access photo library assets.", trace.categories.Debug);
+    return new Promise(function(resolve, reject) {
+      let authStatus = PHPhotoLibrary.authorizationStatus();
+      switch (authStatus) {
+        case PHAuthorizationStatus.NotDetermined: {
+          PHPhotoLibrary.requestAuthorization((auth) => {
+              if (auth === PHAuthorizationStatus.Authorized) {
+                  if (trace.isEnabled()) {
+                      trace.write("Application can access photo library assets.", trace.categories.Debug);
+                  }
+                  resolve();
+              }
+              else {
+                reject();
+              }
+          });
+          break;
         }
-    }
+        case PHAuthorizationStatus.Authorized: {
+          if (trace.isEnabled()) {
+              trace.write("Application can access photo library assets.", trace.categories.Debug);
+          }
+          resolve();
+          break;
+        }
+        case PHAuthorizationStatus.Restricted:
+        case PHAuthorizationStatus.Denied: {
+          if (trace.isEnabled()) {
+              trace.write("Application can not access photo library assets.", trace.categories.Debug);
+          }
+          reject();
+          break;
+        }
+      }
+    });
 };
