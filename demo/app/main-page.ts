@@ -17,7 +17,10 @@ export function navigatingTo(args: EventData) {
 }
 
 export function onRequestPermissionsTap(args: EventData) {
-    requestPermissions();
+    requestPermissions().then(
+        () => console.log('got permissions'),
+        () => console.log('permissions rejected')
+    );
 }
 
 export function onTakePictureTap(args: EventData) {
