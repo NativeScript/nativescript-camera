@@ -25,6 +25,9 @@ export class AppComponent {
     }
 
     onRequestPermissionsTap() {
-        requestPermissions();
+        requestPermissions().then(
+            () => console.log('got permissions'),
+            () => console.log('permissions rejected')
+        );
     }
 }
