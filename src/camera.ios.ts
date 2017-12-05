@@ -37,19 +37,6 @@ class UIImagePickerControllerDelegateImpl extends NSObject implements UIImagePic
         return this;
     }
 
-    // create date from a string with format yyyy:MM:dd HH:mm:ss (like the format used in image description)
-    private createDateFromString(value: string): Date {
-        let year = parseInt(value.substr(0, 4));
-        let month = parseInt(value.substr(5, 2));
-        let date = parseInt(value.substr(8, 2));
-
-        let hour = parseInt(value.substr(11, 2));
-        let minutes = parseInt(value.substr(14, 2));
-        let seconds = parseInt(value.substr(17, 2));
-
-        return new Date(year, month - 1, date, hour, minutes, seconds);
-    }
-
     imagePickerControllerDidFinishPickingMediaWithInfo(picker, info): void {
         if (info) {
             let currentDate: Date = new Date();
