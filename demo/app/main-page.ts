@@ -18,35 +18,33 @@ export function navigatingTo(args: EventData) {
     page.bindingContext = fromObject({ cameraImage: picturePath, saveToGallery: true });
 }
 
-export function onRequestPermissionsTap(args: EventData) {
-    requestPermissions().then(
-        () => console.log('got permissions'),
-        () => console.log('permissions rejected')
-    );
-}
-
 export function onTakePictureTap(args: EventData) {
     let page = <Page>(<View>args.object).page;
     let saveToGallery = page.bindingContext.get("saveToGallery");
-    takePicture({ width: 180, height: 180, keepAspectRatio: true, saveToGallery: saveToGallery }).
-        then((imageAsset) => {
-            page.bindingContext.set("cameraImage", imageAsset);
+    requestPermissions().then(
+        () => {
+            takePicture({ width: 180, height: 180, keepAspectRatio: true, saveToGallery: saveToGallery }).
+                then((imageAsset) => {
+                    page.bindingContext.set("cameraImage", imageAsset);
 
-            // if you need image source
-            let source = new imageSourceModule.ImageSource();
-            source.fromAsset(imageAsset).then((source) => {
-                let width = source.width;
-                let height = source.height;
-                if (app.android) {
-                    // the android dimensions are in device pixels
-                    width = layout.toDeviceIndependentPixels(width);
-                    height = layout.toDeviceIndependentPixels(height);
-                }
+                    // if you need image source
+                    let source = new imageSourceModule.ImageSource();
+                    source.fromAsset(imageAsset).then((source) => {
+                        let width = source.width;
+                        let height = source.height;
+                        if (app.android) {
+                            // the android dimensions are in device pixels
+                            width = layout.toDeviceIndependentPixels(width);
+                            height = layout.toDeviceIndependentPixels(height);
+                        }
 
-                console.log(`Size: ${width}x${height}`);
-            });
+                        console.log(`Size: ${width}x${height}`);
+                    });
+                },
+                (err) => {
+                    console.log("Error -> " + err.message);
+                });
         },
-        (err) => {
-            console.log("Error -> " + err.message);
-        });
+        () => alert('permissions rejected')
+    );
 }
