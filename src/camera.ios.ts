@@ -176,38 +176,76 @@ export let isAvailable = function () {
 };
 
 export let requestPermissions = function () {
-    return new Promise(function(resolve, reject) {
-      let authStatus = PHPhotoLibrary.authorizationStatus();
-      switch (authStatus) {
-        case PHAuthorizationStatus.NotDetermined: {
-          PHPhotoLibrary.requestAuthorization((auth) => {
-              if (auth === PHAuthorizationStatus.Authorized) {
-                  if (trace.isEnabled()) {
-                      trace.write("Application can access photo library assets.", trace.categories.Debug);
-                  }
-                  resolve();
-              }
-              else {
+    return new Promise(function (resolve, reject) {
+        requestPhotosPermissions().then(() => {
+            requestCameraPermissions().then(resolve, reject);
+        }, reject);
+    });
+};
+
+let requestPhotosPermissions = function () {
+    return new Promise(function (resolve, reject) {
+        let authStatus = PHPhotoLibrary.authorizationStatus();
+        switch (authStatus) {
+            case PHAuthorizationStatus.NotDetermined: {
+                PHPhotoLibrary.requestAuthorization((auth) => {
+                    if (auth === PHAuthorizationStatus.Authorized) {
+                        if (trace.isEnabled()) {
+                            trace.write("Application can access photo library assets.", trace.categories.Debug);
+                        }
+                        resolve();
+                    }
+                    else {
+                        reject();
+                    }
+                });
+                break;
+            }
+            case PHAuthorizationStatus.Authorized: {
+                if (trace.isEnabled()) {
+                    trace.write("Application can access photo library assets.", trace.categories.Debug);
+                }
+                resolve();
+                break;
+            }
+            case PHAuthorizationStatus.Restricted:
+            case PHAuthorizationStatus.Denied: {
+                if (trace.isEnabled()) {
+                    trace.write("Application can not access photo library assets.", trace.categories.Debug);
+                }
                 reject();
-              }
-          });
-          break;
+                break;
+            }
         }
-        case PHAuthorizationStatus.Authorized: {
-          if (trace.isEnabled()) {
-              trace.write("Application can access photo library assets.", trace.categories.Debug);
-          }
-          resolve();
-          break;
+    });
+};
+
+let requestCameraPermissions = function () {
+    return new Promise(function (resolve, reject) {
+        let cameraStatus = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo);
+        switch (cameraStatus) {
+            case AVAuthorizationStatus.NotDetermined: {
+                AVCaptureDevice.requestAccessForMediaTypeCompletionHandler(AVMediaTypeVideo, (granted) => {
+                    if (granted) {
+                        resolve();
+                    } else {
+                        reject();
+                    }
+                });
+                break;
+            }
+            case AVAuthorizationStatus.Authorized: {
+                resolve();
+                break;
+            }
+            case AVAuthorizationStatus.Restricted:
+            case AVAuthorizationStatus.Denied: {
+                if (trace.isEnabled()) {
+                    trace.write("Application can not access Camera assets.", trace.categories.Debug);
+                }
+                reject();
+                break;
+            }
         }
-        case PHAuthorizationStatus.Restricted:
-        case PHAuthorizationStatus.Denied: {
-          if (trace.isEnabled()) {
-              trace.write("Application can not access photo library assets.", trace.categories.Debug);
-          }
-          reject();
-          break;
-        }
-      }
     });
 };
