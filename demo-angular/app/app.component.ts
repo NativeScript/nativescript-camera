@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { takePicture, requestPermissions } from 'nativescript-camera';
 import { ImageSource } from 'tns-core-modules/image-source';
 import { ImageAsset } from 'tns-core-modules/image-asset';
+import { layout } from 'tns-core-modules/utils/utils';
+import * as app from "tns-core-modules/application";
 
 @Component({
     selector: 'my-app',
@@ -12,22 +14,30 @@ export class AppComponent {
     public cameraImage: ImageAsset;
 
     onTakePictureTap(args) {
-        takePicture({ width: 180, height: 180, keepAspectRatio: true, saveToGallery: this.saveToGallery })
-        .then((imageAsset) => {
-            let source = new ImageSource();
-            source.fromAsset(imageAsset).then((source) => {
-                console.log(`Size: ${source.width}x${source.height}`);
-            });
-            this.cameraImage = imageAsset;
-        }, (error) => {
-            console.log("Error: " + error);
-        });
-    }
-
-    onRequestPermissionsTap() {
         requestPermissions().then(
-            () => console.log('got permissions'),
-            () => console.log('permissions rejected')
+            () => {
+                takePicture({ width: 180, height: 180, keepAspectRatio: true, saveToGallery: this.saveToGallery })
+                    .then((imageAsset: any) => {
+                        this.cameraImage = imageAsset;
+
+                        // if you need image source
+                        let source = new ImageSource();
+                        source.fromAsset(imageAsset).then((source) => {
+                            let width = source.width;
+                            let height = source.height;
+                            if (app.android) {
+                                // the android dimensions are in device pixels
+                                width = layout.toDeviceIndependentPixels(width);
+                                height = layout.toDeviceIndependentPixels(height);
+                            }
+
+                            console.log(`Size: ${width}x${height}`);
+                        });
+                    }, (error) => {
+                        console.log("Error: " + error);
+                    });
+            },
+            () => alert('permissions rejected')
         );
     }
 }
