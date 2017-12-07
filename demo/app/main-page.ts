@@ -23,7 +23,7 @@ export function onTakePictureTap(args: EventData) {
     let saveToGallery = page.bindingContext.get("saveToGallery");
     requestPermissions().then(
         () => {
-            takePicture({ width: 180, height: 180, keepAspectRatio: true, saveToGallery: saveToGallery }).
+            takePicture({ width: 300, height: 300, keepAspectRatio: true, saveToGallery: saveToGallery }).
                 then((imageAsset) => {
                     page.bindingContext.set("cameraImage", imageAsset);
 
