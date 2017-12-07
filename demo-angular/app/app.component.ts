@@ -16,7 +16,7 @@ export class AppComponent {
     onTakePictureTap(args) {
         requestPermissions().then(
             () => {
-                takePicture({ width: 180, height: 180, keepAspectRatio: true, saveToGallery: this.saveToGallery })
+                takePicture({ width: 300, height: 300, keepAspectRatio: true, saveToGallery: this.saveToGallery })
                     .then((imageAsset: any) => {
                         this.cameraImage = imageAsset;
 
