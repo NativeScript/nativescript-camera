@@ -37,7 +37,7 @@ export let takePicture = function (options?): Promise<any> {
                 reqWidth = options.width ? options.width * density : 0;
                 reqHeight = options.height ? options.height * density : reqWidth;
                 shouldKeepAspectRatio = types.isNullOrUndefined(options.keepAspectRatio) ? true : options.keepAspectRatio;
-                cameraFacing = types.isNullOrUndefined(options.cameraFacing) ? options.cameraFacing : 'rear';
+                cameraFacing = types.isNullOrUndefined(options.cameraFacing) ? 'rear': options.cameraFacing;
             }
 
             if ((<any>android.support.v4.content.ContextCompat).checkSelfPermission(
@@ -76,6 +76,7 @@ export let takePicture = function (options?): Promise<any> {
 
             takePictureIntent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, tempPictureUri);
 
+            if (cameraFacing === "front") {
                 takePictureIntent.putExtra("android.intent.extras.CAMERA_FACING",
                     android.hardware.Camera.CameraInfo.CAMERA_FACING_FRONT);
             }
