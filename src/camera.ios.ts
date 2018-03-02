@@ -120,7 +120,7 @@ export let takePicture = function (options): Promise<any> {
         let reqWidth = 0;
         let reqHeight = 0;
         let keepAspectRatio = true;
-        let saveToGallery = true;
+        let saveToGallery = false;
         if (options) {
             reqWidth = options.width || 0;
             reqHeight = options.height || reqWidth;
