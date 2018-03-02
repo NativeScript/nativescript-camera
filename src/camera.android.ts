@@ -77,6 +77,9 @@ export let takePicture = function (options?): Promise<any> {
             if (options && options.cameraFacing === "front") {
                 takePictureIntent.putExtra("android.intent.extras.CAMERA_FACING",
                     android.hardware.Camera.CameraInfo.CAMERA_FACING_FRONT);
+            } else {
+                takePictureIntent.putExtra("android.intent.extras.CAMERA_FACING",
+                    android.hardware.Camera.CameraInfo.CAMERA_FACING_BACK);
             }
 
             if (takePictureIntent.resolveActivity(utils.ad.getApplicationContext().getPackageManager()) != null) {
