@@ -1,4 +1,4 @@
-# Contributing to NativeScript Imagepicker
+# Contributing to NativeScript Camera
 
 :+1: First of all, thank you for taking the time to contribute! :+1:
 
