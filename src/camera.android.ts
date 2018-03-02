@@ -25,17 +25,17 @@ export let takePicture = function (options?): Promise<any> {
             let types: typeof typesModule = require("tns-core-modules/utils/types");
             let utils: typeof utilsModule = require("tns-core-modules/utils/utils");
 
-            let saveToGallery;
-            let reqWidth;
-            let reqHeight;
-            let shouldKeepAspectRatio;
+            let saveToGallery = true;
+            let reqWidth = 0;
+            let reqHeight = 0;
+            let shouldKeepAspectRatio = true;
 
             let density = utils.layout.getDisplayDensity();
             if (options) {
-                saveToGallery = options.saveToGallery ? true : false;
-                reqWidth = options.width ? options.width * density : 0;
+                saveToGallery = types.isNullOrUndefined(options.saveToGallery) ? saveToGallery : options.saveToGallery;
+                reqWidth = options.width ? options.width * density : reqWidth;
                 reqHeight = options.height ? options.height * density : reqWidth;
-                shouldKeepAspectRatio = types.isNullOrUndefined(options.keepAspectRatio) ? true : options.keepAspectRatio;
+                shouldKeepAspectRatio = types.isNullOrUndefined(options.keepAspectRatio) ? shouldKeepAspectRatio : options.keepAspectRatio;
             }
 
             if ((<any>android.support.v4.content.ContextCompat).checkSelfPermission(
@@ -77,6 +77,9 @@ export let takePicture = function (options?): Promise<any> {
             if (options && options.cameraFacing === "front") {
                 takePictureIntent.putExtra("android.intent.extras.CAMERA_FACING",
                     android.hardware.Camera.CameraInfo.CAMERA_FACING_FRONT);
+            } else {
+                takePictureIntent.putExtra("android.intent.extras.CAMERA_FACING",
+                    android.hardware.Camera.CameraInfo.CAMERA_FACING_BACK);
             }
 
             if (takePictureIntent.resolveActivity(utils.ad.getApplicationContext().getPackageManager()) != null) {
