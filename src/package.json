@@ -1,6 +1,6 @@
 {
     "name": "nativescript-camera",
-    "version": "4.0.0",
+    "version": "4.0.1",
     "description": "Provides API for using device camera",
     "repository": {
         "type": "git",
@@ -16,7 +16,7 @@
     },
     "scripts": {
         "tsc": "tsc -skipLibCheck",
-        "build": "npm i && tsc", 
+        "build": "npm i && tsc",
         "postclone": "npm i && node scripts/postclone.js && cd ../demo && npm i && cd ../src && npm run plugin.link",
         "test.android": "npm i && npm run tsc && npm run tslint && cd ../demo && tns build android && tns test android --justlaunch",
         "test.ios": "npm i && npm run tsc && npm run tslint && cd ../demo && tns build ios && tns test ios --justlaunch",
@@ -43,7 +43,7 @@
     ],
     "author": "NativeScript team",
     "dependencies": {
-      "nativescript-permissions": "^1.2.3"
+        "nativescript-permissions": "^1.2.3"
     },
     "devDependencies": {
         "tns-core-modules": "^3.0.0",
