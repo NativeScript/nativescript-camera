@@ -6,22 +6,16 @@
   "nativescript": {
     "id": "org.nativescript.demo.angular",
     "tns-android": {
-      "version": "3.4.0"
+      "version": "4.0.0"
     },
     "tns-ios": {
-      "version": "3.4.0"
+      "version": "4.0.1"
     }
   },
   "scripts": {
     "build.plugin": "cd ../src && npm run build",
     "ci.tslint": "npm i && tslint --config '../tslint.json' 'app/**/*.ts' --exclude '**/node_modules/**'",
-    "ns-bundle": "ns-bundle",
-    "publish-ios-bundle": "npm run ns-bundle --ios --publish-app",
-    "generate-android-snapshot": "generate-android-snapshot --targetArchs arm,arm64,ia32 --install",
-    "start-android-bundle": "npm run ns-bundle --android --run-app",
-    "start-ios-bundle": "npm run ns-bundle --ios --run-app",
-    "build-android-bundle": "npm run ns-bundle --android --build-app",
-    "build-ios-bundle": "npm run ns-bundle --ios --build-app"
+    "generate-android-snapshot": "generate-android-snapshot --targetArchs arm,arm64,ia32 --install"
   },
   "dependencies": {
     "@angular/animations": "~5.0.0",
@@ -38,7 +32,7 @@
     "nativescript-theme-core": "~1.0.2",
     "reflect-metadata": "~0.1.8",
     "rxjs": "^5.5.0",
-    "tns-core-modules": "^3.4.0",
+    "tns-core-modules": "^4.0.0",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
@@ -47,18 +41,20 @@
     "babel-traverse": "6.23.1",
     "babel-types": "6.23.0",
     "babylon": "6.16.1",
+    "clean-webpack-plugin": "~0.1.19",
     "copy-webpack-plugin": "~4.0.1",
     "css-loader": "~0.28.7",
     "extract-text-webpack-plugin": "~3.0.0",
     "lazy": "1.0.11",
     "nativescript-css-loader": "~0.26.0",
     "nativescript-dev-typescript": "^0.6.0",
-    "nativescript-dev-webpack": "^0.9.0",
+    "nativescript-dev-webpack": "^0.10.1",
     "nativescript-worker-loader": "~0.8.1",
     "raw-loader": "~0.5.1",
     "resolve-url-loader": "~2.1.0",
     "tslint": "^5.0.0",
     "typescript": "~2.4.2",
+    "uglifyjs-webpack-plugin": "~1.1.6",
     "webpack": "~3.8.1",
     "webpack-bundle-analyzer": "^2.8.2",
     "webpack-sources": "~1.0.1"
