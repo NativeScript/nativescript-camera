@@ -1,2 +1,3 @@
 ﻿import application = require("tns-core-modules/application");
-application.start({ moduleName: "main-page" });
+require("./bundle-config");
+application.run({ moduleName: "app-root" });
