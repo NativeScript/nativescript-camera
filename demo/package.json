@@ -15,7 +15,9 @@
   "scripts": {
     "build.plugin": "cd ../src && npm run build",
     "ci.tslint": "npm i && tslint --config '../tslint.json' 'app/**/*.ts' --exclude '**/node_modules/**'",
-    "generate-android-snapshot": "generate-android-snapshot --targetArchs arm,arm64,ia32 --install"
+    "generate-android-snapshot": "generate-android-snapshot --targetArchs arm,arm64,ia32 --install",
+    "e2e": "tsc -p e2e && mocha --opts ./e2e/config/mocha.opts",
+    "compile-tests": "tsc -p e2e --watch"
   },
   "dependencies": {
     "nativescript-camera": "../src",
@@ -32,6 +34,7 @@
     "extract-text-webpack-plugin": "~3.0.0",
     "lazy": "1.0.11",
     "nativescript-css-loader": "~0.26.0",
+    "nativescript-dev-appium": "3.2.0",
     "nativescript-dev-typescript": "^0.6.0",
     "nativescript-dev-webpack": "^0.10.1",
     "nativescript-worker-loader": "~0.8.1",
