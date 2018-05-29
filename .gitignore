@@ -23,3 +23,5 @@ publish/package
 demo*/report/report.html
 demo*/report/stats.json
 /.project
+/src/platforms/android/nativescript_camera.aar
+/src/*.tgz

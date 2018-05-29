@@ -27,17 +27,6 @@ npm install nativescript-camera --save
 
 > Note: the `--save` flag will add the plugin as dependency in your package.json file
 
-### Requesting permissions
-
-Newer API levels of Android and iOS versions are requiring explicit permissions in order the application
-to have access to the camera and to be able to save photos to the device. Once the user has granted permissions the camera module can be used.
-
-```
-camera.requestPermissions();
-```
-
-> Note: Older versions won't be affected by the usage of the requestPermissions method.
-
 ## API
 
 ### Methods
@@ -54,8 +43,11 @@ camera.requestPermissions();
 | width | 0 | Defines the desired width (in device independent pixels) of the taken image. It should be used with height property. If `keepAspectRatio` actual image width could be different in order to keep the aspect ratio of the original camera image. The actual image width will be greater than requested if the display density of the device is higher (than 1) (full HD+ resolutions). |
 | height | 0 | Defines the desired height (in device independent pixels) of the taken image. It should be used with width property. If `keepAspectRatio` actual image width could be different in order to keep the aspect ratio of the original camera image. The actual image height will be greater than requested if the display density of the device is higher (than 1) (full HD+ resolutions). |
 | keepAspectRatio | true | Defines if camera picture aspect ratio should be kept during picture resizing. This property could affect width or height return values. |
-| saveToGallery | false | Defines if camera picture should be copied to photo Gallery (Android) or Photos (iOS) |
+| saveToGallery | true | Defines if camera picture should be copied to photo Gallery (Android) or Photos (iOS) |
 | cameraFacing | rear | The initial camera facing. Use 'front' for selfies. |
+
+
+> Note: The `saveToGallery` option might have unexpected behavior on Android! Some vendor camera apps (e.g. LG) will save all captured images to the gallery regardless of what the value of `saveToGallery` is. This behavior cannot be controlled by the camera plugin and if you must exclude the captured image from the photo gallery, you will need to get a local storage read/write permission and write custom code to find the gallery location and delete the new image from there.
 
 ## Usage 
 
@@ -165,7 +157,11 @@ var isAvailable = camera.isAvailable();
 ```
 
 > Note: This method will return false when used in iOS simulator (as the simulator does not have camera hardware)
-    
-## License
 
-Apache License Version 2.0, January 2004
+## Contribute
+We love PRs! Check out the [contributing guidelines](CONTRIBUTING.md). If you want to contribute, but you are not sure where to start - look for [issues labeled `help wanted`](https://github.com/NativeScript/nativescript-camera/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22).
+
+## Get Help 
+Please, use [github issues](https://github.com/NativeScript/nativescript-camera/issues) strictly for [reporting bugs](CONTRIBUTING.md#reporting-bugs) or [requesting features](CONTRIBUTING.md#requesting-new-features). For general questions and support, check out the [NativeScript community forum](https://discourse.nativescript.org/) or ask our experts in [NativeScript community Slack channel](http://developer.telerik.com/wp-login.php?action=slack-invitation).
+
+![](https://ga-beacon.appspot.com/UA-111455-24/nativescript/nativescript-camera?pixel)

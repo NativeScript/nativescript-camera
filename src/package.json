@@ -1,6 +1,6 @@
 {
     "name": "nativescript-camera",
-    "version": "3.2.1",
+    "version": "4.0.2",
     "description": "Provides API for using device camera",
     "repository": {
         "type": "git",
@@ -16,7 +16,7 @@
     },
     "scripts": {
         "tsc": "tsc -skipLibCheck",
-        "build": "npm i && tsc", 
+        "build": "npm i && tsc",
         "postclone": "npm i && node scripts/postclone.js && cd ../demo && npm i && cd ../src && npm run plugin.link",
         "test.android": "npm i && npm run tsc && npm run tslint && cd ../demo && tns build android && tns test android --justlaunch",
         "test.ios": "npm i && npm run tsc && npm run tslint && cd ../demo && tns build ios && tns test ios --justlaunch",
@@ -25,6 +25,8 @@
         "plugin.tscwatch": "npm run tsc -- -w",
         "demo.ios": "npm i && npm run tsc && cd ../demo && tns run ios --syncAllFiles",
         "demo.android": "npm i && npm run tsc && cd ../demo && tns run android --syncAllFiles",
+        "demo.ng.ios": "npm i && npm run tsc && cd ../demo-angular && tns run ios --syncAllFiles",
+        "demo.ng.android": "npm i && npm run tsc && cd ../demo-angular && tns run android --syncAllFiles",
         "demo.reset": "cd ../demo && rimraf platforms",
         "plugin.prepare": "npm run tsc && cd ../demo && tns plugin remove nativescript-camera && tns plugin add ../src",
         "clean": "cd ../demo && rimraf hooks node_modules platforms && cd ../src && rimraf node_modules && npm run plugin.link",
@@ -41,11 +43,11 @@
     ],
     "author": "NativeScript team",
     "dependencies": {
-      "nativescript-permissions": "^1.2.3"
+        "nativescript-permissions": "^1.2.3"
     },
     "devDependencies": {
-        "tns-core-modules": "^3.0.0",
-        "tns-platform-declarations": "^3.0.0",
+        "tns-core-modules": "^4.0.0",
+        "tns-platform-declarations": "^4.0.0",
         "typescript": "~2.3.0",
         "prompt": "^1.0.0",
         "rimraf": "^2.5.0",

@@ -124,8 +124,8 @@ export let takePicture = function (options): Promise<any> {
         if (options) {
             reqWidth = options.width || 0;
             reqHeight = options.height || reqWidth;
-            keepAspectRatio = types.isNullOrUndefined(options.keepAspectRatio) ? true : options.keepAspectRatio;
-            saveToGallery = options.saveToGallery ? true : false;
+            keepAspectRatio = types.isNullOrUndefined(options.keepAspectRatio) ? keepAspectRatio : options.keepAspectRatio;
+            saveToGallery = types.isNullOrUndefined(options.saveToGallery) ? saveToGallery : options.saveToGallery;
         }
 
         let authStatus = PHPhotoLibrary.authorizationStatus();
