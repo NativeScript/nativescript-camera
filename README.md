@@ -1,4 +1,4 @@
-# NativeScript Camera [![Build Status](https://travis-ci.org/NativeScript/nativescript-camera.svg?branch=master)](https://travis-ci.org/NativeScript/nativescript-camera)
+# NativeScript Camera [![Build Status](https://travis-ci.org/NativeScript/nativescript-camera.svg?branch=next)](https://travis-ci.org/NativeScript/nativescript-camera)
 
 Welcome to the `nativescript-camera` plugin for NativeScript framework 
 
