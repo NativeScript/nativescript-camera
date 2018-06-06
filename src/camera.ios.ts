@@ -1,4 +1,4 @@
-import types = require("tns-core-modules/utils/types");
+import * as types from "tns-core-modules/utils/types";
 import * as imageSourceModule from "tns-core-modules/image-source/image-source";
 import * as imageAssetModule from "tns-core-modules/image-asset/image-asset";
 import * as frameModule from "tns-core-modules/ui/frame/frame";
