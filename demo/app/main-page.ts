@@ -24,14 +24,20 @@ export function onTakePictureTap(args: EventData) {
                     page.bindingContext.set("cameraImage", imageAsset);
                     imageAsset.getImageAsync(function (nativeImage) {
                         let scale = 1;
+                        let height = 0;
+                        let width = 0;
                         if (imageAsset.android) {
                             // get the current density of the screen (dpi) and divide it by the default one to get the scale
                             scale = nativeImage.getDensity() / android.util.DisplayMetrics.DENSITY_DEFAULT;
+                            height = imageAsset.options.height;
+                            width = imageAsset.options.width;
                         } else {
-                            scale = imageAsset.nativeImage.scale;
+                            scale = nativeImage.scale;
+                            width = nativeImage.size.width * scale;
+                            height = nativeImage.size.height * scale;
                         }
-                        console.log(`Displayed Size: ${imageAsset.options.width}x${imageAsset.options.height} with scale ${scale}`);
-                        console.log(`Computed Size: ${imageAsset.options.width / scale}x${imageAsset.options.height / scale}`);
+                        console.log(`Displayed Size: ${width}x${height} with scale ${scale}`);
+                        console.log(`Image Size: ${width / scale}x${height / scale}`);
                     });
                 },
                     (err) => {
