@@ -2,10 +2,6 @@ import { EventData, Observable, fromObject } from "tns-core-modules/data/observa
 import { Page } from "tns-core-modules/ui/page";
 import { View } from 'tns-core-modules/ui/core/view';
 import { takePicture, requestPermissions } from "nativescript-camera";
-import * as appModule from "tns-core-modules/application";
-import * as imageSourceModule from "tns-core-modules/image-source";
-import { layout } from 'tns-core-modules/utils/utils';
-import * as app from "tns-core-modules/application";
 
 import * as trace from "tns-core-modules/trace";
 trace.addCategories(trace.categories.Debug);
@@ -26,24 +22,27 @@ export function onTakePictureTap(args: EventData) {
             takePicture({ width: 300, height: 300, keepAspectRatio: true, saveToGallery: saveToGallery }).
                 then((imageAsset) => {
                     page.bindingContext.set("cameraImage", imageAsset);
-
-                    // if you need image source
-                    let source = new imageSourceModule.ImageSource();
-                    source.fromAsset(imageAsset).then((source) => {
-                        let width = source.width;
-                        let height = source.height;
-                        if (app.android) {
-                            // the android dimensions are in device pixels
-                            width = layout.toDeviceIndependentPixels(width);
-                            height = layout.toDeviceIndependentPixels(height);
+                    imageAsset.getImageAsync(function (nativeImage) {
+                        let scale = 1;
+                        let height = 0;
+                        let width = 0;
+                        if (imageAsset.android) {
+                            // get the current density of the screen (dpi) and divide it by the default one to get the scale
+                            scale = nativeImage.getDensity() / android.util.DisplayMetrics.DENSITY_DEFAULT;
+                            height = imageAsset.options.height;
+                            width = imageAsset.options.width;
+                        } else {
+                            scale = nativeImage.scale;
+                            width = nativeImage.size.width * scale;
+                            height = nativeImage.size.height * scale;
                         }
-
-                        console.log(`Size: ${width}x${height}`);
+                        console.log(`Displayed Size: ${width}x${height} with scale ${scale}`);
+                        console.log(`Image Size: ${width / scale}x${height / scale}`);
                     });
                 },
-                (err) => {
-                    console.log("Error -> " + err.message);
-                });
+                    (err) => {
+                        console.log("Error -> " + err.message);
+                    });
         },
         () => alert('permissions rejected')
     );
