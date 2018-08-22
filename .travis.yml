@@ -1,6 +1,6 @@
 branches:
   only: 
-    - master
+    - next
 env:
   global:
     - ANDROID_PACKAGE='camera-debug.apk'
