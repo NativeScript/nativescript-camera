@@ -15,7 +15,7 @@ matrix:
     - stage: "Lint"
       language: node_js
       os: linux
-      node_js: "6"
+      node_js: "8"
       script: cd src && npm run ci.tslint && cd ../demo && npm run ci.tslint && cd ../demo-angular && npm run ci.tslint
     - stage: "Build and WebPack"
       os: osx
@@ -23,22 +23,31 @@ matrix:
         - WebPackiOS="11"
       osx_image: xcode9.2
       language: node_js 
-      node_js: "6"
+      node_js: "8"
       jdk: oraclejdk8
+      before_script:
+        - cd ../demo && tns platform add ios@next
+        - cd ../demo-angular && tns platform add ios@next
       script: cd demo && npm run build.plugin && npm i && tns build ios --env.uglify && cd ../demo-angular && npm i && tns build ios --env.uglify --env.aot
     - language: android
       os: linux
       env:
         - WebPackAndroid="26"
       jdk: oraclejdk8
-      before_install: nvm install 6.10.3
+      before_install: nvm install 8.11.4
+      before_script:
+        - cd ../demo && tns platform add android@next
+        - cd ../demo-angular && tns platform add android@next
       script: cd demo && npm run build.plugin && npm i && tns build android --env.uglify --env.snapshot && cd ../demo-angular && npm i && tns build android --env.uglify --env.snapshot --env.aot
     - env: 
         - BuildAndroid="26"
       language: android
       os: linux
       jdk: oraclejdk8
-      before_install: nvm install 8.9.4
+      before_install: nvm install 8.11.4
+      before_script:
+        - cd ../demo && tns platform add android@next
+        - cd ../demo-angular && tns platform add android@next
       script:
         - cd src && npm i && npm run tsc && cd ../demo && tns build android && cd ../demo-angular && tns build android
         - "curl -u $SAUCE_USER:$SAUCE_KEY -X POST -H 'Content-Type: application/octet-stream' $ANDROID_SAUCE_STORAGE --data-binary @$ANDROID_PACKAGE_FOLDER/app-debug.apk"
@@ -48,8 +57,11 @@ matrix:
         - Xcode="9.2"
       osx_image: xcode9.2
       language: node_js 
-      node_js: "6"
+      node_js: "8"
       jdk: oraclejdk8
+      before_script:
+        - cd ../demo && tns platform add ios@next
+        - cd ../demo-angular && tns platform add ios@next
       script: 
         - cd src && npm i && npm run tsc && cd ../demo && tns build ios && cd ../demo-angular && tns build ios
         - cd $IOS_PACKAGE_FOLDER && zip -r $IOS_PACKAGE demo.app
@@ -59,7 +71,7 @@ matrix:
         - Android="23"
       language: node_js
       os: linux
-      node_js: "6"
+      node_js: "8"
       script:
         - npm i -g appium
         - cd demo && npm i
@@ -68,7 +80,7 @@ matrix:
       env: 
         - iOS="10"
       language: node_js 
-      node_js: "6"
+      node_js: "8"
       script:
         - npm i -g appium
         - cd demo && npm i
