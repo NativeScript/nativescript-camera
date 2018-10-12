@@ -104,6 +104,10 @@ cache:
         - .nvm
         - $HOME/.gradle/caches/
         - $HOME/.gradle/wrapper/
+        
+before_install:
+    - sudo pip install --upgrade pip
+    - sudo pip install six
 
 before_install:
     - sudo pip install --upgrade pip
