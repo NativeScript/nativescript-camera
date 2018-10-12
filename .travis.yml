@@ -20,8 +20,8 @@ matrix:
     - stage: "Build and WebPack"
       os: osx
       env:
-        - WebPackiOS="11"
-      osx_image: xcode9.2
+        - WebPackiOS="12.0"
+      osx_image: xcode10.0
       language: node_js 
       node_js: "8"
       jdk: oraclejdk8
@@ -53,9 +53,9 @@ matrix:
         - "curl -u $SAUCE_USER:$SAUCE_KEY -X POST -H 'Content-Type: application/octet-stream' $ANDROID_SAUCE_STORAGE --data-binary @$ANDROID_PACKAGE_FOLDER/app-debug.apk"
     - os: osx
       env: 
-        - BuildiOS="11"
-        - Xcode="9.2"
-      osx_image: xcode9.2
+        - BuildiOS="12.0"
+        - Xcode="10.0"
+      osx_image: xcode10.0
       language: node_js 
       node_js: "8"
       jdk: oraclejdk8
@@ -78,7 +78,7 @@ matrix:
         - travis_retry npm run e2e -- --runType android23 --sauceLab --reuseDevice --appPath $ANDROID_PACKAGE
     - os: linux
       env: 
-        - iOS="10"
+        - iOS="12.0"
       language: node_js 
       node_js: "8"
       script:
@@ -104,6 +104,10 @@ cache:
         - .nvm
         - $HOME/.gradle/caches/
         - $HOME/.gradle/wrapper/
+
+before_install:
+    - sudo pip install --upgrade pip
+    - sudo pip install six
 
 install:
     - echo no | npm install -g nativescript
