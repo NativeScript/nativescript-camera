@@ -165,6 +165,16 @@ export let takePicture = function (options): Promise<any> {
         if (topMostFrame) {
             let viewController: UIViewController = topMostFrame.currentPage && topMostFrame.currentPage.ios;
             if (viewController) {
+                while (viewController.parentViewController) {
+                    // find top-most view controler
+                    viewController = viewController.parentViewController;
+                }
+
+                while (viewController.presentedViewController) {
+                    // find last presented modal
+                    viewController = viewController.presentedViewController;
+                }
+
                 viewController.presentViewControllerAnimatedCompletion(imagePickerController, true, null);
             }
         }
