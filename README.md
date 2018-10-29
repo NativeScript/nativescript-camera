@@ -91,7 +91,7 @@ camera.takePicture()
     });
 ```
 ``` TypeScript
-import { Image } from "ui/image";
+import { Image } from "tns-core-modules/ui/image";
 camera.takePicture().
     then((imageAsset) => {
         console.log("Result is an image asset instance");
@@ -134,7 +134,7 @@ camera.takePicture(options)
     });
 ```
 ``` TypeScript
-import { Image } from "ui/image";
+import { Image } from "tns-core-modules/ui/image";
 
 var options = { width: 300, height: 300, keepAspectRatio: false, saveToGallery: true };
 camera.takePicture(options).
