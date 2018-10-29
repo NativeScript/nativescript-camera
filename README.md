@@ -80,7 +80,7 @@ import * as camera from "nativescript-camera";
 Then you are ready to use it:
 > Example 2: How to take a picture and to recieve image asset
 ``` JavaScript
-var imageModule = require("ui/image");
+var imageModule = require("tns-core-modules/ui/image");
 camera.takePicture()   
     .then(function (imageAsset) {
         console.log("Result is an image asset instance");
@@ -91,7 +91,7 @@ camera.takePicture()
     });
 ```
 ``` TypeScript
-import { Image } from "ui/image";
+import { Image } from "tns-core-modules/ui/image";
 camera.takePicture().
     then((imageAsset) => {
         console.log("Result is an image asset instance");
@@ -121,7 +121,7 @@ __Example 3__ shows how to use the options parameter:
 > Example 3: How to setup `width`, `height`, `keepAspectRatio` and `saveToGallery` properties for the camera module
 
 ``` JavaScript
-var imageModule = require("ui/image");
+var imageModule = require("tns-core-modules/ui/image");
 
 var options = { width: 300, height: 300, keepAspectRatio: false, saveToGallery: true };
 camera.takePicture(options)   
@@ -134,7 +134,7 @@ camera.takePicture(options)
     });
 ```
 ``` TypeScript
-import { Image } from "ui/image";
+import { Image } from "tns-core-modules/ui/image";
 
 var options = { width: 300, height: 300, keepAspectRatio: false, saveToGallery: true };
 camera.takePicture(options).
