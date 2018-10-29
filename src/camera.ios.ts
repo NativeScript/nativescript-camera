@@ -159,7 +159,7 @@ export let takePicture = function (options): Promise<any> {
 
         imagePickerController.modalPresentationStyle = UIModalPresentationStyle.CurrentContext;
 
-        let frame: typeof frameModule = require("ui/frame");
+        let frame: typeof frameModule = require("tns-core-modules/ui/frame");
 
         let topMostFrame = frame.topmost();
         if (topMostFrame) {
