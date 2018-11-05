@@ -8,30 +8,37 @@ import { ImageAsset } from 'tns-core-modules/image-asset';
 })
 export class AppComponent {
     public saveToGallery: boolean = true;
+    public keepAspectRatio: boolean = true;
+    public width: number = 320;
+    public height: number = 240;
     public cameraImage: ImageAsset;
+    public actualWidth: number;
+    public actualHeight: number;
+    public scale: number = 1;
+    public labelText: string;
 
     onTakePictureTap(args) {
         requestPermissions().then(
             () => {
-                takePicture({ width: 300, height: 300, keepAspectRatio: true, saveToGallery: this.saveToGallery })
+                takePicture({ width: this.width, height: this.height, keepAspectRatio: this.keepAspectRatio, saveToGallery: this.saveToGallery })
                     .then((imageAsset: any) => {
                         this.cameraImage = imageAsset;
+                        var that = this;
                         imageAsset.getImageAsync(function (nativeImage) {
-                            let scale = 1;
-                            let height = 0;
-                            let width = 0;
                             if (imageAsset.android) {
                                 // get the current density of the screen (dpi) and divide it by the default one to get the scale
-                                scale = nativeImage.getDensity() / android.util.DisplayMetrics.DENSITY_DEFAULT;
-                                height = imageAsset.options.height;
-                                width = imageAsset.options.width;
+                                that.scale = nativeImage.getDensity() / android.util.DisplayMetrics.DENSITY_DEFAULT;
+                                that.actualWidth = nativeImage.getWidth();
+                                that.actualHeight = nativeImage.getHeight();
                             } else {
-                                scale = nativeImage.scale;
-                                width = nativeImage.size.width * scale;
-                                height = nativeImage.size.height * scale;
+                                that.scale = nativeImage.scale;
+                                that.actualWidth = nativeImage.size.width * that.scale;
+                                that.actualHeight = nativeImage.size.height * that.scale;
                             }
-                            console.log(`Displayed Size: ${width}x${height} with scale ${scale}`);
-                            console.log(`Image Size: ${width / scale}x${height / scale}`);
+                            that.labelText = `Displayed Size: ${that.actualWidth}x${that.actualHeight} with scale ${that.scale}\n`+
+                                `Image Size: ${Math.round(that.actualWidth / that.scale)}x${Math.round(that.actualHeight / that.scale)}`;
+
+                            console.log(`${that.labelText}`);
                         });
                     }, (error) => {
                         console.log("Error: " + error);

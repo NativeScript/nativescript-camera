@@ -1,10 +1,23 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo">
-    <GridLayout rows="auto, *, auto">
-        <StackLayout orientation="horizontal" row="0" padding="10">
-            <Label text="saveToGallery" />
-            <Switch checked="{{ saveToGallery }}"/>
+    <GridLayout rows="auto, *, auto, auto">
+        <StackLayout row="0" orientation="vertical" padding="10">
+            <StackLayout orientation="horizontal" row="0" padding="10">
+                <Label text="saveToGallery" />
+                <Switch checked="{{ saveToGallery }}"/>
+            </StackLayout>
+            <StackLayout orientation="horizontal" row="0" padding="10">
+                <Label text="keepAspectRatio" />
+                <Switch checked="{{ keepAspectRatio }}"/>
+            </StackLayout>
+            <StackLayout orientation="horizontal" padding="10">
+                <Label text="width"></Label>
+                <TextField hint="Enter width" keyboardType="number" text="{{ width }}" class="input"></TextField>
+                <Label text="height"></Label>
+                <TextField hint="Enter height" keyboardType="number" text="{{ height }}" class="input"></TextField>
+            </StackLayout>
         </StackLayout>
-        <Image row="1" src="{{ cameraImage }}" id="image" stretch="fill" margin="10"/>
-        <Button text="Take Picture" tap="onTakePictureTap"  row="2" padding="10"/>
+        <Image row="1" src="{{ cameraImage }}" id="image" stretch="aspectFit" margin="10"/>
+        <TextView row="2" text="{{ labelText }}" editable="false"></TextView>>
+        <Button row="3"  text="Take Picture" tap="onTakePictureTap"  padding="10"/>
     </GridLayout>
 </Page>

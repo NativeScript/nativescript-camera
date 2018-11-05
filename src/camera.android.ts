@@ -67,8 +67,7 @@ export let takePicture = function (options?): Promise<any> {
                 tempPictureUri = (<any>android.support.v4.content).FileProvider.getUriForFile(
                     applicationModule.android.currentContext,
                     applicationModule.android.nativeApp.getPackageName() + ".provider", nativeFile);
-            }
-            else {
+            } else {
                 tempPictureUri = android.net.Uri.fromFile(nativeFile);
             }
 
