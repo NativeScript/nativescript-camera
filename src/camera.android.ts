@@ -129,7 +129,7 @@ export let takePicture = function (options?): Promise<any> {
                             let pictureHeight = exif.getAttributeInt(android.media.ExifInterface.TAG_IMAGE_LENGTH, 0);
                             let isPictureLandscape = pictureWidth > pictureHeight;
                             let areOptionsLandscape = reqWidth > reqHeight;
-                            if (isPictureLandscape != areOptionsLandscape) {
+                            if (isPictureLandscape !== areOptionsLandscape) {
                                 let oldReqWidth = reqWidth;
                                 reqWidth = reqHeight;
                                 reqHeight = oldReqWidth;

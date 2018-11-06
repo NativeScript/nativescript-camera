@@ -11,8 +11,8 @@ export function navigatingTo(args: EventData) {
     let page = <Page>args.object;
     let picturePath = null;
 
-    page.bindingContext = fromObject({ 
-        cameraImage: picturePath, 
+    page.bindingContext = fromObject({
+        cameraImage: picturePath,
         saveToGallery: false,
         keepAspectRatio: true,
         width: 320,
@@ -45,7 +45,7 @@ export function onTakePictureTap(args: EventData) {
                             actualWidth = nativeImage.size.width * scale;
                             actualHeight = nativeImage.size.height * scale;
                         }
-                        let labelText = `Displayed Size: ${actualWidth}x${actualHeight} with scale ${scale}\n`+
+                        let labelText = `Displayed Size: ${actualWidth}x${actualHeight} with scale ${scale}\n` +
                             `Image Size: ${Math.round(actualWidth / scale)}x${Math.round(actualHeight / scale)}`;
                         page.bindingContext.set("labelText", labelText);
 

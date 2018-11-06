@@ -96,7 +96,7 @@ class UIImagePickerControllerDelegateImpl extends NSObject implements UIImagePic
         if (this._keepAspectRatio) {
             let isPictureLandscape = imageAsset.nativeImage.size.width > imageAsset.nativeImage.size.height;
             let areOptionsLandscape = this._width > this._height;
-            if (isPictureLandscape != areOptionsLandscape) {
+            if (isPictureLandscape !== areOptionsLandscape) {
                 let oldWidth = this._width;
                 this._width = this._height;
                 this._height = oldWidth;

@@ -23,7 +23,7 @@ export class AppComponent {
                 takePicture({ width: this.width, height: this.height, keepAspectRatio: this.keepAspectRatio, saveToGallery: this.saveToGallery })
                     .then((imageAsset: any) => {
                         this.cameraImage = imageAsset;
-                        var that = this;
+                        let that = this;
                         imageAsset.getImageAsync(function (nativeImage) {
                             if (imageAsset.android) {
                                 // get the current density of the screen (dpi) and divide it by the default one to get the scale
@@ -35,7 +35,7 @@ export class AppComponent {
                                 that.actualWidth = nativeImage.size.width * that.scale;
                                 that.actualHeight = nativeImage.size.height * that.scale;
                             }
-                            that.labelText = `Displayed Size: ${that.actualWidth}x${that.actualHeight} with scale ${that.scale}\n`+
+                            that.labelText = `Displayed Size: ${that.actualWidth}x${that.actualHeight} with scale ${that.scale}\n` +
                                 `Image Size: ${Math.round(that.actualWidth / that.scale)}x${Math.round(that.actualHeight / that.scale)}`;
 
                             console.log(`${that.labelText}`);
