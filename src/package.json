@@ -46,12 +46,12 @@
         "nativescript-permissions": "^1.2.3"
     },
     "devDependencies": {
-        "tns-core-modules": "^4.0.0",
-        "tns-platform-declarations": "^4.0.0",
-        "typescript": "~2.7.2",
+        "tns-core-modules": "^5.0.1",
+        "tns-platform-declarations": "^5.0.0",
+        "typescript": "~2.8.2",
         "prompt": "^1.0.0",
-        "rimraf": "^2.5.0",
-        "tslint": "^5.0.0"
+        "rimraf": "^2.6.2",
+        "tslint": "~5.11.0"
     },
     "license": "Apache-2.0"
 }
