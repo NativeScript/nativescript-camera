@@ -7,7 +7,7 @@ import { ImageAsset } from 'tns-core-modules/image-asset';
     templateUrl: './app.component.html'
 })
 export class AppComponent {
-    public saveToGallery: boolean = true;
+    public saveToGallery: boolean = false;
     public keepAspectRatio: boolean = true;
     public width: number = 320;
     public height: number = 240;
