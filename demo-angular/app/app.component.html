@@ -1,8 +1,22 @@
-<GridLayout rows="auto, *, auto">
-    <StackLayout orientation="horizontal" row="0" padding="10">
-        <Label text="saveToGallery"></Label>
-        <Switch [(ngModel)]="saveToGallery"></Switch>
+<GridLayout rows="auto, *, auto, auto">
+    <StackLayout row="0" orientation="vertical" padding="10">
+        <StackLayout orientation="horizontal" padding="10">
+            <Label text="saveToGallery"></Label>
+            <Switch [(ngModel)]="saveToGallery"></Switch>
+        </StackLayout>
+        <StackLayout orientation="horizontal" padding="10">
+            <Label text="keepAspectRatio"></Label>
+            <Switch [(ngModel)]="keepAspectRatio"></Switch>
+        </StackLayout>
+        <StackLayout orientation="horizontal" padding="10">
+            <Label text="width"></Label>
+            <TextField hint="Enter width" keyboardType="number" [(ngModel)]="width" class="input"></TextField>
+            <Label text="height"></Label>
+            <TextField hint="Enter height" keyboardType="number" [(ngModel)]="height" class="input"></TextField>
+        </StackLayout>
     </StackLayout>
-    <Image row="1" [src]="cameraImage" stretch="fill" margin="10"></Image>
-    <Button text="Take Picture" (tap)='onTakePictureTap($event)' row="2" padding="10"></Button>
+
+    <Image row="1" [src]="cameraImage" stretch="aspectFit" margin="10"></Image>
+    <TextView row="2" [(ngModel)]="labelText" editable="false"></TextView>>
+    <Button row="3" text="Take Picture" (tap)='onTakePictureTap($event)' padding="10"></Button>
 </GridLayout>

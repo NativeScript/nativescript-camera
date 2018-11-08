@@ -67,8 +67,7 @@ export let takePicture = function (options?): Promise<any> {
                 tempPictureUri = (<any>android.support.v4.content).FileProvider.getUriForFile(
                     applicationModule.android.currentContext,
                     applicationModule.android.nativeApp.getPackageName() + ".provider", nativeFile);
-            }
-            else {
+            } else {
                 tempPictureUri = android.net.Uri.fromFile(nativeFile);
             }
 
@@ -123,6 +122,18 @@ export let takePicture = function (options?): Promise<any> {
                             rotateBitmap(picturePath, 180);
                         } else if (orientation === android.media.ExifInterface.ORIENTATION_ROTATE_270) {
                             rotateBitmap(picturePath, 270);
+                        }
+
+                        if (shouldKeepAspectRatio) {
+                            let pictureWidth = exif.getAttributeInt(android.media.ExifInterface.TAG_IMAGE_WIDTH, 0);
+                            let pictureHeight = exif.getAttributeInt(android.media.ExifInterface.TAG_IMAGE_LENGTH, 0);
+                            let isPictureLandscape = pictureWidth > pictureHeight;
+                            let areOptionsLandscape = reqWidth > reqHeight;
+                            if (isPictureLandscape !== areOptionsLandscape) {
+                                let oldReqWidth = reqWidth;
+                                reqWidth = reqHeight;
+                                reqHeight = oldReqWidth;
+                            }
                         }
 
                         let asset = new imageAssetModule.ImageAsset(picturePath);
