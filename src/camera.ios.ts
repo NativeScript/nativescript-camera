@@ -42,7 +42,6 @@ class UIImagePickerControllerDelegateImpl extends NSObject implements UIImagePic
             let currentDate: Date = new Date();
             let source = info.valueForKey(UIImagePickerControllerOriginalImage);
             if (source) {
-                let image = null;
                 let imageSource: typeof imageSourceModule = require("image-source");
                 let imageSourceResult = imageSource.fromNativeSource(source);
 
@@ -81,10 +80,8 @@ class UIImagePickerControllerDelegateImpl extends NSObject implements UIImagePic
                                     trace.write("An error ocurred while saving image to gallery: " +
                                         err, trace.categories.Error, trace.messageType.error);
                                 }
-
                             });
-                    }
-                    else {
+                    } else {
                         imageAsset = new imageAssetModule.ImageAsset(imageSourceResult.ios);
                         this.setImageAssetAndCallCallback(imageAsset);
                     }
@@ -96,6 +93,17 @@ class UIImagePickerControllerDelegateImpl extends NSObject implements UIImagePic
     }
 
     private setImageAssetAndCallCallback(imageAsset: imageAssetModule.ImageAsset) {
+        if (this._keepAspectRatio) {
+            let pictureWidth = imageAsset.nativeImage ? imageAsset.nativeImage.size.width : imageAsset.ios.pixelWidth;
+            let pictureHeight = imageAsset.nativeImage ? imageAsset.nativeImage.size.height : imageAsset.ios.pixelHeight;
+            let isPictureLandscape = pictureWidth > pictureHeight;
+            let areOptionsLandscape = this._width > this._height;
+            if (isPictureLandscape !== areOptionsLandscape) {
+                let oldWidth = this._width;
+                this._width = this._height;
+                this._height = oldWidth;
+            }
+        }
         imageAsset.options = {
             width: this._width,
             height: this._height,
@@ -139,8 +147,7 @@ export let takePicture = function (options): Promise<any> {
         } else if (saveToGallery) {
             listener = UIImagePickerControllerDelegateImpl.new().initWithCallbackAndOptions(
                 resolve, reject, { saveToGallery: saveToGallery, keepAspectRatio: keepAspectRatio });
-        }
-        else {
+        } else {
             listener = UIImagePickerControllerDelegateImpl.new().initWithCallback(resolve, reject);
         }
         imagePickerController.delegate = listener;
@@ -204,8 +211,7 @@ let requestPhotosPermissions = function () {
                             trace.write("Application can access photo library assets.", trace.categories.Debug);
                         }
                         resolve();
-                    }
-                    else {
+                    } else {
                         reject();
                     }
                 });

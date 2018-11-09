@@ -11,33 +11,46 @@ export function navigatingTo(args: EventData) {
     let page = <Page>args.object;
     let picturePath = null;
 
-    page.bindingContext = fromObject({ cameraImage: picturePath, saveToGallery: true });
+    page.bindingContext = fromObject({
+        cameraImage: picturePath,
+        saveToGallery: false,
+        keepAspectRatio: true,
+        width: 320,
+        height: 240
+    });
 }
 
 export function onTakePictureTap(args: EventData) {
     let page = <Page>(<View>args.object).page;
     let saveToGallery = page.bindingContext.get("saveToGallery");
+    let keepAspectRatio = page.bindingContext.get("keepAspectRatio");
+    let width = page.bindingContext.get("width");
+    let height = page.bindingContext.get("height");
     requestPermissions().then(
         () => {
-            takePicture({ width: 300, height: 300, keepAspectRatio: true, saveToGallery: saveToGallery }).
+            takePicture({ width: width, height: height, keepAspectRatio: keepAspectRatio, saveToGallery: saveToGallery }).
                 then((imageAsset) => {
                     page.bindingContext.set("cameraImage", imageAsset);
                     imageAsset.getImageAsync(function (nativeImage) {
                         let scale = 1;
-                        let height = 0;
-                        let width = 0;
+                        let actualWidth = 0;
+                        let actualHeight = 0;
                         if (imageAsset.android) {
                             // get the current density of the screen (dpi) and divide it by the default one to get the scale
                             scale = nativeImage.getDensity() / android.util.DisplayMetrics.DENSITY_DEFAULT;
-                            height = imageAsset.options.height;
-                            width = imageAsset.options.width;
+                            actualWidth = nativeImage.getWidth();
+                            actualHeight = nativeImage.getHeight();
                         } else {
                             scale = nativeImage.scale;
-                            width = nativeImage.size.width * scale;
-                            height = nativeImage.size.height * scale;
+                            actualWidth = nativeImage.size.width * scale;
+                            actualHeight = nativeImage.size.height * scale;
                         }
-                        console.log(`Displayed Size: ${width}x${height} with scale ${scale}`);
-                        console.log(`Image Size: ${width / scale}x${height / scale}`);
+                        let labelText = `Displayed Size: ${actualWidth}x${actualHeight} with scale ${scale}\n` +
+                            `Image Size: ${Math.round(actualWidth / scale)}x${Math.round(actualHeight / scale)}`;
+                        page.bindingContext.set("labelText", labelText);
+
+                    console.log(`${labelText}`);
+
                     });
                 },
                     (err) => {
