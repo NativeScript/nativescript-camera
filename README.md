@@ -53,14 +53,24 @@ npm install nativescript-camera --save
 
 ### Requesting permissions
 
-Newer API levels of Android and iOS versions are requiring explicit permissions in order the application
-to have access to the camera and to be able to save photos to the device. Once the user has granted permissions the camera module can be used.
+Both Android and iOS require explicit permissions in order for the application to have access to the camera and save photos to the device. Once the user has granted permissions the camera module can be used.
 
-```
-camera.requestPermissions();
+```JavaScript
+camera.requestPermissions().then(
+function success() {
+// permission request accepted or already granted 
+// ... call camera.takePicture here ...
+}, 
+function failure() {
+// permission request rejected
+// ... tell the user ...
+}
+);
 ```
 
-> Note: Older versions won't be affected by the usage of the requestPermissions method.
+> Note for Android: Older versions of Android that don't use a request permissions popup won't be affected by the usage of the requestPermissions method.
+
+> Note for iOS: If the user rejects permissions from the iOS popup, the app is not allowed to ask again. You can instruct the user to go to app settings and enable the camera permission manually from there.
 
 ### Using the camera module to take a picture
 
