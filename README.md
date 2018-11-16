@@ -34,7 +34,7 @@ npm install nativescript-camera --save
 | Method | Description |
 | --- | --- |
 | takePicture(options?: CameraOptions) | Take a photo using the camera with an optional parameter for setting different camera options. |
-| requestPermissions() | Check required permissions for using device camera. |
+| requestPermissions() | Check required permissions for using device camera. Returns a Promise. |
 | isAvailable() | Is the device camera available to use. |
 
 ### CameraOptions
