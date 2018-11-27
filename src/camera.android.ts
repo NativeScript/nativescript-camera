@@ -1,14 +1,12 @@
 import * as typesModule from "tns-core-modules/utils/types";
 import * as utilsModule from "tns-core-modules/utils/utils";
 import * as applicationModule from "tns-core-modules/application/application";
-import * as imageSourceModule from "tns-core-modules/image-source/image-source";
 import * as imageAssetModule from "tns-core-modules/image-asset/image-asset";
 import * as trace from "tns-core-modules/trace/trace";
 import * as platform from "tns-core-modules/platform/platform";
 import * as permissions from "nativescript-permissions";
 
 let REQUEST_IMAGE_CAPTURE = 3453;
-let REQUEST_REQUIRED_PERMISSIONS = 1234;
 
 export let takePicture = function (options?): Promise<any> {
     return new Promise((resolve, reject) => {

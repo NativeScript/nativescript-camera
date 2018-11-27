@@ -24,7 +24,13 @@ export class AppComponent {
                     .then((imageAsset: any) => {
                         this.cameraImage = imageAsset;
                         let that = this;
-                        imageAsset.getImageAsync(function (nativeImage) {
+                        imageAsset.getImageAsync(function (nativeImage, ex) {
+                            if (ex instanceof Error) {
+                                throw ex;
+                            } else if (typeof ex === "string") {
+                                throw new Error(ex);
+                            }
+
                             if (imageAsset.android) {
                                 // get the current density of the screen (dpi) and divide it by the default one to get the scale
                                 that.scale = nativeImage.getDensity() / android.util.DisplayMetrics.DENSITY_DEFAULT;
