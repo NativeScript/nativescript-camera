@@ -68,9 +68,16 @@ function failure() {
 );
 ```
 
-> Note for Android: Older versions of Android that don't use a request permissions popup won't be affected by the usage of the requestPermissions method.
+> **Note for Android:** Older versions of Android that don't use a request permissions popup won't be affected by the usage of the requestPermissions method.
 
-> Note for iOS: If the user rejects permissions from the iOS popup, the app is not allowed to ask again. You can instruct the user to go to app settings and enable the camera permission manually from there.
+> **Note for iOS:** If the user rejects permissions from the iOS popup, the app is not allowed to ask again. You can instruct the user to go to app settings and enable the camera permission manually from there. Additionally, [App Store Guideline 5.1.1](https://developer.apple.com/app-store/review/guidelines/#data-collection-and-storage) requires apps to clarify the usage of the camera and photo library. To do so, edit your `app/App_Resources/iOS/Info.plist` and add the following clarifications:
+
+```
+<key>NSCameraUsageDescription</key>
+<string>enter your camera permission request text here</string>
+<key>NSPhotoLibraryUsageDescription</key>
+<string>enter your photo library permission request text here</string>
+```
 
 ### Using the camera module to take a picture
 
