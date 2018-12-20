@@ -27,3 +27,4 @@ demo*/report/stats.json
 /src/*.tgz
 *.esm.json
 *.tns.json
+!demo-vue/app/app.js
