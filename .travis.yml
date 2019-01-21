@@ -42,8 +42,9 @@ matrix:
       node_js: "8"
       jdk: oraclejdk8
       script: 
-        - cd src && npm run build
-        - cd ../demo-angular && npm i && tns build ios --bundle --env.uglify --env.aot
+        - cd src && npm run build && npm pack
+        - cd ../demo-angular && tns plugin add ../src/*.tgz
+        - npm i && tns build ios --bundle --env.uglify --env.aot
     - os: osx
       env:
         - WebPackiOS="12.0"
