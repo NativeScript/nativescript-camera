@@ -41,6 +41,11 @@ describe("Camera", () => {
                 let allowSecond = await driver.findElementByTextIfExists("ALLOW", SearchOptions.exact);
                 await allowSecond.click();
             }
+            let geoTagConfirm = await driver.findElementByTextIfExists("Next", SearchOptions.contains)
+            if(geoTagConfirm !== undefined){
+                await geoTagConfirm.click();
+            }
+
             let shutterBtn = await driver.findElementByAccessibilityId("Shutter");
             await shutterBtn.click();
             let acceptBtn = await driver.findElementByAccessibilityId("Done");

@@ -118,7 +118,19 @@
         "deviceName": "iPhone X",
         "noReset": true,
         "fullReset": false,
-        "app": ""
+        "app": "",
+        "density":3,
+        "offsetPixels":87
+    },
+    "sim.iPhoneX.iOS12.1": {
+        "platformName": "iOS",
+        "platformVersion": "12.1",
+        "deviceName": "iPhone X",
+        "noReset": true,
+        "fullReset": false,
+        "app": "",
+        "density":3,
+        "offsetPixels":87
     },
     "sim.iPhone8.iOS11.2": {
         "platformName": "iOS",

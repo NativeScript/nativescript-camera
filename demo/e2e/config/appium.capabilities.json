@@ -118,7 +118,9 @@
         "deviceName": "iPhone X",
         "noReset": true,
         "fullReset": false,
-        "app": ""
+        "app": "",
+        "density":3,
+        "offsetPixels":87
     },
     "sim.iPhoneX.iOS12.1": {
         "platformName": "iOS",
@@ -126,6 +128,8 @@
         "deviceName": "iPhone X",
         "noReset": true,
         "fullReset": false,
-        "app": ""
+        "app": "",
+        "density":3,
+        "offsetPixels":87
     }
 }
