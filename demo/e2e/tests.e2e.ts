@@ -33,31 +33,32 @@ describe("Camera", () => {
         const takePictureButton = await driver.findElementByText("Take Picture");
         await takePictureButton.click();
         if (isAndroid) {
-            let allow = await driver.findElementByTextIfExists("Allow", SearchOptions.exact);
-            if (allow !== undefined) {
-                await allow.click();
-                allow = await driver.findElementByTextIfExists("Allow", SearchOptions.exact);
-                await allow.click();
+            let allow = await driver.findElementByText("Allow", SearchOptions.exact);
+            await allow.click();
+            let allowSecond = await driver.findElementByText("Allow", SearchOptions.exact);
+            await allowSecond.click();
+            let geoTagConfirm = await driver.findElementByTextIfExists("Next", SearchOptions.contains)
+            if(geoTagConfirm !== undefined){
+                await geoTagConfirm.click();
             }
-            const deny = await driver.findElementByTextIfExists("Deny", SearchOptions.exact);
-            if (deny !== undefined) {
-                await deny.click();
-            }
-            let images = await driver.findElementsByClassName(driver.locators.image); // Take a picture
-            await images[5].click();
-            images = await driver.findElementsByClassName(driver.locators.image); // Accept it
-            await images[4].click();
+            
+            let shutterBtn = await driver.findElementByAccessibilityId("Shutter");
+            await shutterBtn.click();
+            let acceptBtn = await driver.findElementByAccessibilityId("Done");
+            await acceptBtn.click();
         } else {
             let ok = await driver.findElementByTextIfExists("OK", SearchOptions.exact);
-            if (ok !== undefined) {
+            if(ok !== undefined){
                 await ok.click();
-                ok = await driver.findElementByTextIfExists("OK", SearchOptions.exact);
-                await ok.click();
+                let okBtn = await driver.findElementByTextIfExists("OK", SearchOptions.exact);
+                await okBtn.click();
             }
+            let photos = await driver.findElementByText("Photos", SearchOptions.exact);
+            expect(photos).to.exist;
             await driver.wait(2000);
-            await driver.clickPoint(50, 100); // Select directory
+            await driver.clickPoint(50, 110); // Select directory
             await driver.wait(2000);
-            await driver.clickPoint(50, 150); // Select image
+            await driver.clickPoint(50, 240); // Select image
         }
         const saveToGalleryLabel = await driver.findElementByText("saveToGallery");
         expect(saveToGalleryLabel).to.exist;
