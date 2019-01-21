@@ -42,7 +42,7 @@ matrix:
       node_js: "8"
       jdk: oraclejdk8
       script: 
-        - cd src && npm run build.iosOnly
+        - cd src && npm run build
         - cd ../demo-angular && npm i && tns build ios --bundle --env.uglify --env.aot
     - os: osx
       env:
@@ -53,7 +53,7 @@ matrix:
       node_js: "8"
       jdk: oraclejdk8
       script: 
-        - cd src && npm run build.iosOnly
+        - cd src && npm run build
         - cd ../demo-vue && npm i && tns build ios --bundle --env.uglify
         - cd $IOS_PACKAGE_FOLDER_VUE && zip -r $IOS_PACKAGE_VUE demovue.app
         - "curl -u $SAUCE_USER:$SAUCE_KEY -X POST -H 'Content-Type: application/octet-stream' $IOS_SAUCE_STORAGE/$IOS_PACKAGE_VUE?overwrite=true --data-binary @$IOS_PACKAGE_FOLDER_VUE/$IOS_PACKAGE_VUE"
