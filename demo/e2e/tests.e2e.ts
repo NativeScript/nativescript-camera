@@ -37,6 +37,8 @@ describe("Camera", () => {
             await allow.click();
             let allowSecond = await driver.findElementByText("Allow", SearchOptions.exact);
             await allowSecond.click();
+            let allowLocation = await driver.findElementByText("Allow", SearchOptions.exact);
+            await allowLocation.click();
             let geoTagConfirm = await driver.findElementByTextIfExists("Next", SearchOptions.contains)
             if(geoTagConfirm !== undefined){
                 await geoTagConfirm.click();
