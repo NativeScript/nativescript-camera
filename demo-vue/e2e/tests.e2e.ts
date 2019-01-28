@@ -1,6 +1,7 @@
 import { AppiumDriver, createDriver, SearchOptions, Direction, UIElement, Point, Locator } from "nativescript-dev-appium";
 import { isSauceLab, runType } from "nativescript-dev-appium/lib/parser";
 import { expect } from "chai";
+import { exec } from "child_process";
 
 const isSauceRun = isSauceLab;
 const isAndroid: boolean = runType.includes("android");
@@ -32,6 +33,7 @@ describe("Camera", () => {
     it("should take a picture", async function () {
         const takePictureButton = await driver.findElementByText("Take Picture");
         await takePictureButton.click();
+        await driver.wait(1000);
         if (isAndroid) {
             let allow = await driver.findElementByTextIfExists("Allow", SearchOptions.exact);
             if (allow !== undefined) {
@@ -63,5 +65,10 @@ describe("Camera", () => {
         }
         const saveToGalleryLabel = await driver.findElementByText("saveToGallery");
         expect(saveToGalleryLabel).to.exist;
+        const imageDisplayedInfo = await driver.findElementByText("Displayed Size: ", SearchOptions.contains);
+        expect(imageDisplayedInfo).to.exist;
+        const imageInfo = await driver.findElementByText("Image Size: ", SearchOptions.contains);
+        expect(imageInfo).to.exist;
+        
     });
 });

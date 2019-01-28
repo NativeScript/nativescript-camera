@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="29.382" tests="1" failures="0">
+  <testsuite name="Root Suite" timestamp="2019-01-18T15:44:54" tests="0" failures="0" time="0">
+  </testsuite>
+  <testsuite name="Camera" timestamp="2019-01-18T15:45:00" tests="1" file="/Users/dtodorov/SSD/nativescript-camera/demo-vue/e2e/tests.e2e.js" failures="0" time="29.382">
+    <testcase name="Camera should take a picture" time="29.382" classname="should take a picture">
+    </testcase>
+  </testsuite>
+</testsuites>
