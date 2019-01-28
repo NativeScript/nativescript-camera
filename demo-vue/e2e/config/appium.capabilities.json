@@ -42,8 +42,8 @@
         "platformVersion": "7.0",
         "deviceName": "Android GoogleAPI Emulator",
         "lt": 60000,
+        "appActivity": "com.tns.NativeScriptActivity",
         "newCommandTimeout": 720,
-        "appiumVersion": "1.7.1",
         "noReset": true,
         "fullReset": false,
         "app": ""
@@ -54,7 +54,7 @@
         "deviceName": "Android GoogleAPI Emulator",
         "lt": 60000,
         "newCommandTimeout": 720,
-        "appiumVersion": "1.7.1",
+        "appiumVersion": "1.9.1",
         "noReset": true,
         "fullReset": false,
         "app": ""
@@ -131,5 +131,14 @@
         "app": "",
         "density":3,
         "offsetPixels":87
+    },
+    "sim.iPhone8.iOS11.2": {
+        "platformName": "iOS",
+        "platformVersion": "11.2",
+        "deviceName": "iPhone 8",
+        "noReset": true,
+        "fullReset": false,
+        "appiumVersion": "1.7.1",
+        "app": ""
     }
 }

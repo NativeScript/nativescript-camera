@@ -14,7 +14,9 @@
   },
   "scripts": {
     "build.plugin": "cd ../src && npm run build",
-    "ci.tslint": "npm i && tslint --config '../tslint.json' 'app/**/*.ts' --exclude '**/node_modules/**'"
+    "ci.tslint": "npm i && tslint --config '../tslint.json' 'app/**/*.ts' --exclude '**/node_modules/**'",
+    "ci.android.build": "cd ../src && npm run build && cd ../demo-angular && tns build android",
+    "ci.ios.build": "cd ../src && npm run build && cd ../demo-angular && tns build ios"
   },
   "dependencies": {
     "@angular/animations": "~7.1.0",
