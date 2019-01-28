@@ -35,21 +35,20 @@ describe("Camera", () => {
         await takePictureButton.click();
         await driver.wait(1000);
         if (isAndroid) {
-            let allow = await driver.findElementByTextIfExists("ALLOW", SearchOptions.exact);
+            let allow = await driver.findElementByTextIfExists("Allow", SearchOptions.exact);
             if (allow !== undefined) {
                 await allow.click();
-                let allowSecond = await driver.findElementByTextIfExists("ALLOW", SearchOptions.exact);
-                await allowSecond.click();
+                allow = await driver.findElementByTextIfExists("Allow", SearchOptions.exact);
+                await allow.click();
             }
-            let geoTagConfirm = await driver.findElementByTextIfExists("Next", SearchOptions.contains)
-            if(geoTagConfirm !== undefined){
-                await geoTagConfirm.click();
+            const deny = await driver.findElementByTextIfExists("Deny", SearchOptions.exact);
+            if (deny !== undefined) {
+                await deny.click();
             }
-
-            let shutterBtn = await driver.findElementByAccessibilityId("Shutter");
-            await shutterBtn.click();
-            let acceptBtn = await driver.findElementByAccessibilityId("Done");
-            await acceptBtn.click();
+            let images = await driver.findElementsByClassName(driver.locators.image); // Take a picture
+            await images[5].click();
+            images = await driver.findElementsByClassName(driver.locators.image); // Accept it
+            await images[4].click();
         } else {
             let ok = await driver.findElementByTextIfExists("OK", SearchOptions.exact);
             if(ok !== undefined){
