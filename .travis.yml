@@ -137,7 +137,7 @@ matrix:
       script:
         - npm i -g appium
         - cd ../demo && npm i
-        - travis_wait travis_retry npm run e2e -- --runType sim.iPhone8.iOS11.2 --sauceLab --reuseDevice --appPath $IOS_PACKAGE_NEXT
+        - travis_wait travis_retry npm run e2e -- --runType sim.iPhoneX.iOS12 --sauceLab --reuseDevice --appPath $IOS_PACKAGE_NEXT
 
 android:
   components:
