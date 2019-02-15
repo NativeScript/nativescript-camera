@@ -1,6 +1,6 @@
 {
     "name": "nativescript-camera",
-    "version": "4.1.1",
+    "version": "4.2.0",
     "description": "Provides API for using device camera",
     "repository": {
         "type": "git",
