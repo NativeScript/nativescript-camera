@@ -9,7 +9,7 @@ export function takePicture(options?: CameraOptions): Promise<imageAsset.ImageAs
 /**
  * Check required permissions for using device camera.
  */
-export function requestPermissions();
+export function requestPermissions(): Promise<any>;
 
 /**
  * Is the camera available to use
