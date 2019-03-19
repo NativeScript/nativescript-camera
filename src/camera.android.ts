@@ -174,6 +174,18 @@ export let requestPermissions = function () {
     ]);
 };
 
+export let requestPhotosPermissions = function () {
+    return permissions.requestPermissions([
+        (<any>android).Manifest.permission.WRITE_EXTERNAL_STORAGE,
+    ]);
+};
+
+export let requestCameraPermissions = function () {
+    return permissions.requestPermissions([
+        (<any>android).Manifest.permission.CAMERA
+    ]);
+};
+
 let createDateTimeStamp = function () {
     let result = "";
     let date = new Date();

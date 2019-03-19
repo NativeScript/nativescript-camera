@@ -200,7 +200,7 @@ export let requestPermissions = function () {
     });
 };
 
-let requestPhotosPermissions = function () {
+export let requestPhotosPermissions = function () {
     return new Promise(function (resolve, reject) {
         let authStatus = PHPhotoLibrary.authorizationStatus();
         switch (authStatus) {
@@ -236,7 +236,7 @@ let requestPhotosPermissions = function () {
     });
 };
 
-let requestCameraPermissions = function () {
+export let requestCameraPermissions = function () {
     return new Promise(function (resolve, reject) {
         let cameraStatus = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo);
         switch (cameraStatus) {
