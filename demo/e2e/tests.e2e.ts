@@ -5,7 +5,6 @@ const fs = require('fs');
 const addContext = require('mochawesome/addContext');
 const rimraf = require('rimraf');
 const isSauceRun = isSauceLab;
-const isAndroid: boolean = runType.includes("android");
 
 describe("Camera", () => {
     let driver: AppiumDriver;
@@ -46,21 +45,25 @@ describe("Camera", () => {
     it("should take a picture", async function () {
         const takePictureButton = await driver.findElementByText("Take Picture");
         await takePictureButton.click();
-        if (isAndroid) {
-            let allow = await driver.findElementByTextIfExists("Allow", SearchOptions.exact);
-            if (allow !== undefined) {
-                await allow.click();
-                allow = await driver.findElementByTextIfExists("Allow", SearchOptions.exact);
-                await allow.click();
-            }
-            const deny = await driver.findElementByTextIfExists("Deny", SearchOptions.exact);
-            if (deny !== undefined) {
-                await deny.click();
-            }
-            let images = await driver.findElementsByClassName(driver.locators.image); // Take a picture
-            await images[5].click();
-            images = await driver.findElementsByClassName(driver.locators.image); // Accept it
-            await images[4].click();
+        if (driver.isAndroid) {
+            await driver.wait(1000);
+            let allow = await driver.findElementByText("ALLOW", SearchOptions.exact);
+            await allow.click();
+            allow = await driver.findElementByText("ALLOW", SearchOptions.exact);
+            await allow.click();
+            const deny = await driver.findElementByText("Deny", SearchOptions.contains);
+            await deny.click();
+            let nextBtnLocationTag = await driver.findElementByText("NEXT", SearchOptions.exact);
+            await nextBtnLocationTag.click();
+
+            let shutter = await driver.findElementByAccessibilityId("Shutter"); // Take a picture
+            await shutter.click();
+            // workaround for issue in android initial camera app open
+            await driver.navBack();
+            await takePictureButton.click();
+            await shutter.click();
+            let acceptBtn = await driver.findElementByAccessibilityId("Done"); // Accept it
+            await acceptBtn.click();
         } else {
             let ok = await driver.findElementByTextIfExists("OK", SearchOptions.exact);
             if(ok !== undefined){
