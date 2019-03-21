@@ -18,6 +18,7 @@ class UIImagePickerControllerDelegateImpl extends NSObject implements UIImagePic
     private _height: number;
     private _keepAspectRatio: boolean;
     private _saveToGallery: boolean;
+    private _allowsEditing: boolean;
 
     public initWithCallback(callback: (result?) => void, errorCallback: (result?) => void): UIImagePickerControllerDelegateImpl {
         this._callback = callback;
@@ -32,6 +33,7 @@ class UIImagePickerControllerDelegateImpl extends NSObject implements UIImagePic
             this._width = options.width;
             this._height = options.height;
             this._saveToGallery = options.saveToGallery;
+            this._allowsEditing = options.allowsEditing;
             this._keepAspectRatio = types.isNullOrUndefined(options.keepAspectRatio) ? true : options.keepAspectRatio;
         }
         return this;
@@ -41,6 +43,9 @@ class UIImagePickerControllerDelegateImpl extends NSObject implements UIImagePic
         if (info) {
             let currentDate: Date = new Date();
             let source = info.valueForKey(UIImagePickerControllerOriginalImage);
+            if (this._allowsEditing) {
+                source = info.valueForKey(UIImagePickerControllerEditedImage);
+            }
             if (source) {
                 let imageSource: typeof imageSourceModule = require("image-source");
                 let imageSourceResult = imageSource.fromNativeSource(source);
@@ -129,11 +134,13 @@ export let takePicture = function (options): Promise<any> {
         let reqHeight = 0;
         let keepAspectRatio = true;
         let saveToGallery = true;
+        let allowsEditing = false;
         if (options) {
             reqWidth = options.width || 0;
             reqHeight = options.height || reqWidth;
             keepAspectRatio = types.isNullOrUndefined(options.keepAspectRatio) ? keepAspectRatio : options.keepAspectRatio;
             saveToGallery = types.isNullOrUndefined(options.saveToGallery) ? saveToGallery : options.saveToGallery;
+            allowsEditing = types.isNullOrUndefined(options.allowsEditing) ? allowsEditing : options.allowsEditing;
         }
 
         let authStatus = PHPhotoLibrary.authorizationStatus();
@@ -143,10 +150,10 @@ export let takePicture = function (options): Promise<any> {
 
         if (reqWidth && reqHeight) {
             listener = UIImagePickerControllerDelegateImpl.new().initWithCallbackAndOptions(
-                resolve, reject, { width: reqWidth, height: reqHeight, keepAspectRatio: keepAspectRatio, saveToGallery: saveToGallery });
+                resolve, reject, { width: reqWidth, height: reqHeight, keepAspectRatio: keepAspectRatio, saveToGallery: saveToGallery, allowsEditing: allowsEditing });
         } else if (saveToGallery) {
             listener = UIImagePickerControllerDelegateImpl.new().initWithCallbackAndOptions(
-                resolve, reject, { saveToGallery: saveToGallery, keepAspectRatio: keepAspectRatio });
+                resolve, reject, { saveToGallery: saveToGallery, keepAspectRatio: keepAspectRatio, allowsEditing: allowsEditing });
         } else {
             listener = UIImagePickerControllerDelegateImpl.new().initWithCallback(resolve, reject);
         }
@@ -162,6 +169,7 @@ export let takePicture = function (options): Promise<any> {
             imagePickerController.sourceType = sourceType;
             imagePickerController.cameraDevice = options && options.cameraFacing === "front" ?
                 UIImagePickerControllerCameraDevice.Front : UIImagePickerControllerCameraDevice.Rear;
+            imagePickerController.allowsEditing = allowsEditing;
         }
 
         imagePickerController.modalPresentationStyle = UIModalPresentationStyle.CurrentContext;
