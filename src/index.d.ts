@@ -45,6 +45,12 @@ export interface CameraOptions {
     saveToGallery?: boolean;
 
     /**
+     * iOS Only
+     * Defines if camera "Retake" or "Use Photo" screen forces user to crop camera picture to a square and optionally lets them zoom in.
+     */
+    allowsEditing?: boolean;
+
+    /**
      * The initial camera. Default "rear".
      * The current implementation doesn't work on all Android devices, in which case it falls back to the default behavior.
      */
