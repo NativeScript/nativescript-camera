@@ -40,13 +40,14 @@ npm install nativescript-camera --save
 | isAvailable() | Is the device camera available to use. |
 
 ### CameraOptions
-| Property | Default | Description |
-| --- | --- | --- |
-| width | 0 | Defines the desired width (in device independent pixels) of the taken image. It should be used with height property. If `keepAspectRatio` actual image width could be different in order to keep the aspect ratio of the original camera image. The actual image width will be greater than requested if the display density of the device is higher (than 1) (full HD+ resolutions). |
-| height | 0 | Defines the desired height (in device independent pixels) of the taken image. It should be used with width property. If `keepAspectRatio` actual image width could be different in order to keep the aspect ratio of the original camera image. The actual image height will be greater than requested if the display density of the device is higher (than 1) (full HD+ resolutions). |
-| keepAspectRatio | true | Defines if camera picture aspect ratio should be kept during picture resizing. This property could affect width or height return values. |
-| saveToGallery | true | Defines if camera picture should be copied to photo Gallery (Android) or Photos (iOS) |
-| cameraFacing | rear | The initial camera facing. Use 'front' for selfies. |
+| Property | Default | Platform | Description |
+| --- | --- | --- | --- |
+| width | 0 | Both | Defines the desired width (in device independent pixels) of the taken image. It should be used with height property. If `keepAspectRatio` actual image width could be different in order to keep the aspect ratio of the original camera image. The actual image width will be greater than requested if the display density of the device is higher (than 1) (full HD+ resolutions). |
+| height | 0 | Both | Defines the desired height (in device independent pixels) of the taken image. It should be used with width property. If `keepAspectRatio` actual image width could be different in order to keep the aspect ratio of the original camera image. The actual image height will be greater than requested if the display density of the device is higher (than 1) (full HD+ resolutions). |
+| keepAspectRatio | true | Both | Defines if camera picture aspect ratio should be kept during picture resizing. This property could affect width or height return values. |
+| saveToGallery | true | Both | Defines if camera picture should be copied to photo Gallery (Android) or Photos (iOS) |
+| allowsEditing | false | iOS | Defines if camera "Retake" or "Use Photo" screen forces the user to crop camera picture to a square and optionally lets them zoom in. |
+| cameraFacing | rear | Both | The initial camera facing. Use 'front' for selfies. |
 
 
 > Note: The `saveToGallery` option might have unexpected behavior on Android! Some vendor camera apps (e.g. LG) will save all captured images to the gallery regardless of what the value of `saveToGallery` is. This behavior cannot be controlled by the camera plugin and if you must exclude the captured image from the photo gallery, you will need to get a local storage read/write permission and write custom code to find the gallery location and delete the new image from there.
@@ -131,6 +132,7 @@ __Example 2__ shows how to take a picture using the NativeScript camera module. 
 * __height__: The desired height of the picture (in device independent pixels).
 * __keepAspectRatio__: A boolean parameter that indicates if the aspect ratio should be kept.
 * __saveToGallery__: A boolean parameter that indicates if the original taken photo will be saved in "Photos" for Android and in "Camera Roll" in iOS
+* __allowsEditing__: (iOS Only) A boolean parameter that indicates if the camera "Retake" or "Use Photo" screen forces the user to crop camera picture to a square and optionally lets them zoom in.
 * __cameraFacing__: Start with either the "front" or "rear" (default) camera of the device. The current implementation doesn't work on all Android devices, in which case it falls back to the default behavior.
 
 What does `device independent pixels` mean? The NativeScript layout mechanism uses device-independent pixels when measuring UI controls. This allows you to declare one layout and this layout will look similar to all devices (no matter the device's display resolution). In order to get a proper image quality for high resolution devices (like iPhone retina and Android Full HD), camera will return an image with bigger dimensions. For example, if we request an image that is 100x100, on iPhone 6 the actual image will be 200x200 (since its display density factor is 2 -> 100*2x100*2).
