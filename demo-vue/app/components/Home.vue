@@ -10,6 +10,10 @@
                     <Label text="saveToGallery" />
                     <Switch v-model="saveToGallery"/>
                 </StackLayout>
+                <StackLayout android:visibility="collapsed" orientation="horizontal" row="0" padding="5">
+                    <Label text="allowsEditing" />
+                    <Switch v-model="allowsEditing"/>
+                </StackLayout>
                 <StackLayout orientation="horizontal" row="0" padding="5">
                     <Label text="keepAspectRatio" />
                     <Switch v-model="keepAspectRatio"/>
@@ -37,6 +41,7 @@
         data() {
             return {
                 saveToGallery: false,
+                allowsEditing: false,
                 keepAspectRatio: true,
                 width: 320,
                 height: 240,
@@ -50,7 +55,7 @@
                 let that = this;
                 requestPermissions().then(
                     () => {
-                        takePicture({ width: that.width, height: that.height, keepAspectRatio: that.keepAspectRatio, saveToGallery: that.saveToGallery }).
+                        takePicture({ width: that.width, height: that.height, keepAspectRatio: that.keepAspectRatio, saveToGallery: that.saveToGallery, allowsEditing: that.allowsEditing }).
                             then((imageAsset) => {
                                 that.cameraImage = imageAsset;
                                 imageAsset.getImageAsync(function (nativeImage) {
