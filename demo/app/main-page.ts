@@ -10,7 +10,7 @@ trace.enable();
 export function navigatingTo(args: EventData) {
     let page = <Page>args.object;
     let picturePath = null;
-    
+
     page.bindingContext = fromObject({
         cameraImage: picturePath,
         saveToGallery: false,
