@@ -8,6 +8,7 @@ import { ImageAsset } from 'tns-core-modules/image-asset';
 })
 export class AppComponent {
     public saveToGallery: boolean = false;
+    public allowsEditing: boolean = false;
     public keepAspectRatio: boolean = true;
     public width: number = 320;
     public height: number = 240;
@@ -20,7 +21,7 @@ export class AppComponent {
     onTakePictureTap(args) {
         requestPermissions().then(
             () => {
-                takePicture({ width: this.width, height: this.height, keepAspectRatio: this.keepAspectRatio, saveToGallery: this.saveToGallery })
+                takePicture({ width: this.width, height: this.height, keepAspectRatio: this.keepAspectRatio, saveToGallery: this.saveToGallery, allowsEditing: this.allowsEditing })
                     .then((imageAsset: any) => {
                         this.cameraImage = imageAsset;
                         let that = this;

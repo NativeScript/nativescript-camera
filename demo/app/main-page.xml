@@ -6,6 +6,10 @@
                     <Label text="saveToGallery" />
                     <Switch checked="{{ saveToGallery }}"/>
                 </StackLayout>
+                <StackLayout android:visibility="collapsed" orientation="horizontal" row="0" padding="5">
+                    <Label text="allowsEditing" />
+                    <Switch checked="{{ allowsEditing }}"/>
+                </StackLayout>
                 <StackLayout orientation="horizontal" row="0" padding="5">
                     <Label text="keepAspectRatio" />
                     <Switch checked="{{ keepAspectRatio }}"/>
