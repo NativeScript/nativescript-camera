@@ -5,6 +5,10 @@
                 <Label text="saveToGallery"></Label>
                 <Switch [(ngModel)]="saveToGallery"></Switch>
             </StackLayout>
+            <StackLayout android:visibility="collapsed" orientation="horizontal" padding="10">
+                <Label text="allowsEditing"></Label>
+                <Switch [(ngModel)]="allowsEditing"></Switch>
+            </StackLayout>
             <StackLayout orientation="horizontal" padding="10">
                 <Label text="keepAspectRatio"></Label>
                 <Switch [(ngModel)]="keepAspectRatio"></Switch>

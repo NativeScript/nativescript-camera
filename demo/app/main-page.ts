@@ -14,6 +14,7 @@ export function navigatingTo(args: EventData) {
     page.bindingContext = fromObject({
         cameraImage: picturePath,
         saveToGallery: false,
+        allowsEditing:  false,
         keepAspectRatio: true,
         width: 320,
         height: 240
@@ -23,12 +24,13 @@ export function navigatingTo(args: EventData) {
 export function onTakePictureTap(args: EventData) {
     let page = <Page>(<View>args.object).page;
     let saveToGallery = page.bindingContext.get("saveToGallery");
+    let allowsEditing = page.bindingContext.get("allowsEditing");
     let keepAspectRatio = page.bindingContext.get("keepAspectRatio");
     let width = page.bindingContext.get("width");
     let height = page.bindingContext.get("height");
     requestPermissions().then(
         () => {
-            takePicture({ width: width, height: height, keepAspectRatio: keepAspectRatio, saveToGallery: saveToGallery }).
+            takePicture({ width: width, height: height, keepAspectRatio: keepAspectRatio, saveToGallery: saveToGallery, allowsEditing: allowsEditing }).
                 then((imageAsset) => {
                     page.bindingContext.set("cameraImage", imageAsset);
                     imageAsset.getImageAsync(function (nativeImage) {
