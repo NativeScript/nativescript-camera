@@ -121,14 +121,14 @@ matrix:
         - cd ../src && npm i && npm run tsc && cd ../demo-angular && tns build ios
     - stage: "UI Tests"
       env: 
-        - Android="23"
+        - Android="24"
       language: node_js
       os: linux
       node_js: "8"
       script:
         - npm i -g appium
         - cd ../demo && npm i
-        - travis_retry npm run e2e -- --runType android23 --sauceLab --reuseDevice --appPath $ANDROID_PACKAGE_NEXT
+        - travis_retry npm run e2e -- --runType android24 --sauceLab --reuseDevice --appPath $ANDROID_PACKAGE_NEXT
     - os: linux
       env: 
         - iOS="12.0"
