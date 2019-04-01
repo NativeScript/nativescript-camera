@@ -27,6 +27,6 @@
 		"requireModules": ["nativescript-camera"]
 	},
 	"devDependencies": {
-		"nativescript-dev-typescript": "^0.3.0"
+		"nativescript-dev-typescript": "~0.9.0"
 	}
 }
