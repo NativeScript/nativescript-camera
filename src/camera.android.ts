@@ -11,9 +11,9 @@ let REQUEST_IMAGE_CAPTURE = 3453;
 export let takePicture = function (options?): Promise<any> {
     return new Promise((resolve, reject) => {
         try {
-            if ((<any>android.support.v4.content.ContextCompat).checkSelfPermission(
+            if (androidx.core.content.ContextCompat.checkSelfPermission(
                 applicationModule.android.currentContext,
-                (<any>android).Manifest.permission.CAMERA) !== android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                android.Manifest.permission.CAMERA) !== android.content.pm.PackageManager.PERMISSION_GRANTED) {
 
                 reject(new Error("Application does not have permissions to use Camera"));
 
@@ -36,9 +36,9 @@ export let takePicture = function (options?): Promise<any> {
                 shouldKeepAspectRatio = types.isNullOrUndefined(options.keepAspectRatio) ? shouldKeepAspectRatio : options.keepAspectRatio;
             }
 
-            if ((<any>android.support.v4.content.ContextCompat).checkSelfPermission(
+            if (androidx.core.content.ContextCompat.checkSelfPermission(
                 applicationModule.android.currentContext,
-                (<any>android).Manifest.permission.WRITE_EXTERNAL_STORAGE) !== android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE) !== android.content.pm.PackageManager.PERMISSION_GRANTED) {
 
                 saveToGallery = false;
             }
@@ -62,7 +62,7 @@ export let takePicture = function (options?): Promise<any> {
 
             let sdkVersionInt = parseInt(platform.device.sdkVersion);
             if (sdkVersionInt >= 21) {
-                tempPictureUri = (<any>android.support.v4.content).FileProvider.getUriForFile(
+                tempPictureUri = androidx.core.content.FileProvider.getUriForFile(
                     applicationModule.android.currentContext,
                     applicationModule.android.nativeApp.getPackageName() + ".provider", nativeFile);
             } else {
@@ -169,20 +169,20 @@ export let isAvailable = function () {
 
 export let requestPermissions = function () {
     return permissions.requestPermissions([
-      (<any>android).Manifest.permission.WRITE_EXTERNAL_STORAGE,
-      (<any>android).Manifest.permission.CAMERA
+      android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+      android.Manifest.permission.CAMERA
     ]);
 };
 
 export let requestPhotosPermissions = function () {
     return permissions.requestPermissions([
-        (<any>android).Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
     ]);
 };
 
 export let requestCameraPermissions = function () {
     return permissions.requestPermissions([
-        (<any>android).Manifest.permission.CAMERA
+        android.Manifest.permission.CAMERA
     ]);
 };
 

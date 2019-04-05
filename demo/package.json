@@ -6,7 +6,7 @@
   "nativescript": {
     "id": "org.nativescript.demo",
     "tns-android": {
-      "version": "5.3.0"
+      "version": "5.3.0-2019-03-19-143503-02"
     },
     "tns-ios": {
       "version": "5.3.0"
@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "nativescript-camera": "../src",
-    "tns-core-modules": "^5.0.0"
+    "tns-core-modules": "androidx"
   },
   "devDependencies": {
     "@types/chai": "~4.1.7",

@@ -43,11 +43,11 @@
     ],
     "author": "NativeScript team",
     "dependencies": {
-        "nativescript-permissions": "^1.2.3"
+        "nativescript-permissions": "androidx"
     },
     "devDependencies": {
-        "tns-core-modules": "^5.0.0",
-        "tns-platform-declarations": "^5.0.0",
+        "tns-core-modules": "androidx",
+        "tns-platform-declarations": "androidx",
         "typescript": "~3.1.6",
         "prompt": "^1.0.0",
         "rimraf": "^2.6.2",
