@@ -12,7 +12,7 @@ export let takePicture = function (options?): Promise<any> {
     return new Promise((resolve, reject) => {
         try {
             if ((<any>android.support.v4.content.ContextCompat).checkSelfPermission(
-                applicationModule.android.currentContext,
+                applicationModule.android.context,
                 (<any>android).Manifest.permission.CAMERA) !== android.content.pm.PackageManager.PERMISSION_GRANTED) {
 
                 reject(new Error("Application does not have permissions to use Camera"));
@@ -37,7 +37,7 @@ export let takePicture = function (options?): Promise<any> {
             }
 
             if ((<any>android.support.v4.content.ContextCompat).checkSelfPermission(
-                applicationModule.android.currentContext,
+                applicationModule.android.context,
                 (<any>android).Manifest.permission.WRITE_EXTERNAL_STORAGE) !== android.content.pm.PackageManager.PERMISSION_GRANTED) {
 
                 saveToGallery = false;
@@ -63,7 +63,7 @@ export let takePicture = function (options?): Promise<any> {
             let sdkVersionInt = parseInt(platform.device.sdkVersion);
             if (sdkVersionInt >= 21) {
                 tempPictureUri = (<any>android.support.v4.content).FileProvider.getUriForFile(
-                    applicationModule.android.currentContext,
+                    applicationModule.android.context,
                     applicationModule.android.nativeApp.getPackageName() + ".provider", nativeFile);
             } else {
                 tempPictureUri = android.net.Uri.fromFile(nativeFile);
