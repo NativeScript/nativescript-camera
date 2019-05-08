@@ -28,3 +28,6 @@ demo*/report/stats.json
 *.esm.json
 *.tns.json
 !demo-vue/app/app.js
+test-results.xml
+mochawesome-report/
+/**/e2e/reports/
