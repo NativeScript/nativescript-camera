@@ -98,7 +98,7 @@ import * as camera from "nativescript-camera";
 ```
 
 Then you are ready to use it:
-> Example 2: How to take a picture and to recieve image asset
+> Example 2: How to take a picture and to receive image asset
 ``` JavaScript
 var imageModule = require("tns-core-modules/ui/image");
 camera.takePicture()   
