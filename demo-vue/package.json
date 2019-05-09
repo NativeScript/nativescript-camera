@@ -29,7 +29,7 @@
     "mocha-junit-reporter": "^1.18.0",
     "mocha-multi": "^1.0.1",
     "mochawesome": "^3.1.1",
-    "nativescript-dev-appium": "4.0.9",
+    "nativescript-dev-appium": "5.2.0",
     "nativescript-dev-typescript": "~0.9.0",
     "nativescript-dev-webpack": "~0.21.0",
     "nativescript-vue-template-compiler": "^2.0.0",

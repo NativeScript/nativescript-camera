@@ -42,8 +42,8 @@
         "platformVersion": "7.0",
         "deviceName": "Android GoogleAPI Emulator",
         "lt": 60000,
+        "appActivity": "com.tns.NativeScriptActivity",
         "newCommandTimeout": 720,
-        "appiumVersion": "1.7.1",
         "noReset": true,
         "fullReset": false,
         "app": ""
@@ -89,12 +89,12 @@
         "app": ""
     },
     "sim103iPhone6": {
-            "browserName": "",
-            "appiumVersion": "1.7.1",
-            "platformName": "iOS",
-            "platformVersion": "10.3",
-            "deviceName": "iPhone 6",
-            "app": ""
+        "browserName": "",
+        "appiumVersion": "1.7.1",
+        "platformName": "iOS",
+        "platformVersion": "10.3",
+        "deviceName": "iPhone 6",
+        "app": ""
     },
     "sim.iPhone8.iOS11.2": {
         "platformName": "iOS",
