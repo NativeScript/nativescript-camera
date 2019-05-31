@@ -6,10 +6,10 @@
   "nativescript": {
     "id": "org.nativescript.demo.angular",
     "tns-android": {
-      "version": "5.4.0"
+      "version": "6.0.0-2019-05-29-132216-01"
     },
     "tns-ios": {
-      "version": "5.4.0"
+      "version": "6.0.0-2019-05-28-180227-02"
     }
   },
   "scripts": {
@@ -19,26 +19,29 @@
     "ci.ios.build": "cd ../src && npm run build && cd ../demo-angular && tns build ios"
   },
   "dependencies": {
-    "@angular/animations": "~7.2.0",
-    "@angular/common": "~7.2.0",
-    "@angular/compiler": "~7.2.0",
-    "@angular/core": "~7.2.0",
-    "@angular/forms": "~7.2.0",
-    "@angular/http": "~7.2.0",
-    "@angular/platform-browser": "~7.2.0",
-    "@angular/platform-browser-dynamic": "~7.2.0",
-    "@angular/router": "~7.2.0",
-    "nativescript-angular": "~7.2.0",
+    "@angular/animations": "8.0.0",
+    "@angular/common": "8.0.0",
+    "@angular/compiler": "8.0.0",
+    "@angular/core": "8.0.0",
+    "@angular/forms": "8.0.0",
+    "@angular/http": "8.0.0-beta.10",
+    "@angular/platform-browser": "8.0.0",
+    "@angular/platform-browser-dynamic": "8.0.0",
+    "@angular/router": "8.0.0",
+    "nativescript-angular": "^8.0.0",
     "nativescript-camera": "../src",
     "nativescript-theme-core": "^1.0.4",
     "rxjs": "^6.3.3",
-    "tns-core-modules": "^5.0.0",
+    "tns-core-modules": "^5.4.1",
+    "typescript": "~3.4.5",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
+    "@angular/compiler-cli": "~7.2.0",
+    "@ngtools/webpack": "~7.2.0",
     "nativescript-css-loader": "~0.26.0",
-    "nativescript-dev-typescript": "~0.9.0",
-    "nativescript-dev-webpack": "~0.22.0",
+    "nativescript-dev-typescript": "^0.10.0",
+    "nativescript-dev-webpack": "^0.22.0",
     "tns-platform-declarations": "^5.0.0",
     "tslint": "~5.11.0"
   }
