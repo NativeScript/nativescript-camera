@@ -144,7 +144,7 @@ matrix:
       node_js: "10"
       script:
         - npm i -g appium
-        - cd demo-vue && npm i
+        - cd ../demo-vue && npm i
         - travis_wait travis_retry npm run e2e -- --runType sim.iPhoneX.iOS12 --sauceLab --appPath $IOS_PACKAGE_VUE
 
 android:
