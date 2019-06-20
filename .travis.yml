@@ -26,6 +26,8 @@ matrix:
       node_js: "10"
       jdk: oraclejdk8
       script: 
+        - system_profiler SPHardwareDataType | grep "  Memory:"
+        - system_profiler SPHardwareDataType | grep "  Memory:"
         - cd demo && npm run build.plugin
         - npm i && tns build ios --bundle --env.uglify --copy-to "./outputs/demo.app"
         - cd $IOS_PACKAGE_FOLDER_JS && zip -r $IOS_PACKAGE_JS demo.app
@@ -43,6 +45,7 @@ matrix:
         - node -p "process.arch"
         - node -p "process.arch"
         - node -p "process.arch"
+        - system_profiler SPHardwareDataType | grep "  Memory:"
         - cd src && npm run build && npm pack
         - cd ../demo-angular && tns plugin add ../src/*.tgz
         - npm i && tns build ios --bundle --env.uglify --env.aot
