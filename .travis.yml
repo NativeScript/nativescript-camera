@@ -36,7 +36,7 @@ matrix:
       jdk: oraclejdk8
       script: 
         - cd demo && npm run build.plugin
-        - npm i && tns build ios --bundle --env.uglify --copy-to "./outputs/demo.app"
+        - npm i && tns build ios --env.uglify --copy-to "./outputs/demo.app"
         - cd $IOS_PACKAGE_FOLDER_JS && zip -r $IOS_PACKAGE_JS demo.app
         - "curl -u $SAUCE_USER:$SAUCE_KEY -X POST -H 'Content-Type: application/octet-stream' $IOS_SAUCE_STORAGE/$IOS_PACKAGE_JS?overwrite=true --data-binary @$IOS_PACKAGE_FOLDER_JS/$IOS_PACKAGE_JS"
     - os: osx
@@ -50,7 +50,7 @@ matrix:
       script: 
         - cd src && npm run build && npm pack
         - cd ../demo-angular && tns plugin add ../src/*.tgz
-        - npm i && tns build ios --bundle --env.uglify --env.aot --copy-to "./outputs/demo.app"
+        - npm i && tns build ios --env.uglify --env.aot --copy-to "./outputs/demo.app"
         - cd $IOS_PACKAGE_FOLDER_NG && zip -r $IOS_PACKAGE_NG demo.app
         - "curl -u $SAUCE_USER:$SAUCE_KEY -X POST -H 'Content-Type: application/octet-stream' $IOS_SAUCE_STORAGE/$IOS_PACKAGE_NG?overwrite=true --data-binary @$IOS_PACKAGE_FOLDER_NG/$IOS_PACKAGE_NG"
     - os: osx
@@ -63,7 +63,7 @@ matrix:
       jdk: oraclejdk8
       script: 
         - cd src && npm run build
-        - cd ../demo-vue && npm i && tns build ios --bundle --env.uglify --copy-to "./outputs/demovue.app"
+        - cd ../demo-vue && npm i && tns build ios --env.uglify --copy-to "./outputs/demovue.app"
         - cd $IOS_PACKAGE_FOLDER_VUE && zip -r $IOS_PACKAGE_VUE demovue.app
         - "curl -u $SAUCE_USER:$SAUCE_KEY -X POST -H 'Content-Type: application/octet-stream' $IOS_SAUCE_STORAGE/$IOS_PACKAGE_VUE?overwrite=true --data-binary @$IOS_PACKAGE_FOLDER_VUE/$IOS_PACKAGE_VUE"
     - language: android
@@ -76,7 +76,7 @@ matrix:
       before_install: nvm install 10
       script:
         - cd src && npm run build
-        - cd ../demo && npm i && tns build android --bundle --env.uglify --env.snapshot --copy-to "./outputs/app-debug.apk"
+        - cd ../demo && npm i && tns build android --env.uglify --env.snapshot --copy-to "./outputs/app-debug.apk"
         - "curl -u $SAUCE_USER:$SAUCE_KEY -X POST -H 'Content-Type: application/octet-stream' $ANDROID_SAUCE_STORAGE/$ANDROID_PACKAGE_JS?overwrite=true --data-binary @$ANDROID_PACKAGE_FOLDER_JS/app-debug.apk"
     - language: android
       os: linux
@@ -88,7 +88,7 @@ matrix:
       before_install: nvm install 10
       script:
         - cd src && npm run build
-        - cd ../demo-vue && npm i && tns build android --bundle --env.uglify --copy-to "./outputs/app-debug.apk"
+        - cd ../demo-vue && npm i && tns build android --env.uglify --copy-to "./outputs/app-debug.apk"
         - "curl -u $SAUCE_USER:$SAUCE_KEY -X POST -H 'Content-Type: application/octet-stream' $ANDROID_SAUCE_STORAGE/$ANDROID_PACKAGE_VUE?overwrite=true --data-binary @$ANDROID_PACKAGE_FOLDER_VUE/app-debug.apk"
     - language: android
       os: linux
@@ -102,7 +102,7 @@ matrix:
         - cd src && npm run build
         - cd ../publish && sh pack.sh
         - cd ../demo-angular && tns plugin add ../publish/package/*.tgz
-        - npm i && tns build android --bundle --env.uglify --env.snapshot --env.aot --copy-to "./outputs/app-debug.apk"
+        - npm i && tns build android --env.uglify --env.snapshot --env.aot --copy-to "./outputs/app-debug.apk"
         - "curl -u $SAUCE_USER:$SAUCE_KEY -X POST -H 'Content-Type: application/octet-stream' $ANDROID_SAUCE_STORAGE/$ANDROID_PACKAGE_NG?overwrite=true --data-binary @$ANDROID_PACKAGE_FOLDER_NG/app-debug.apk"
     - stage: "UI Tests"
       env:
