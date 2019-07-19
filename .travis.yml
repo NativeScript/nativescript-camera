@@ -201,7 +201,6 @@ install:
     - tns usage-reporting disable
     - tns error-reporting disable
     - cd demo
-    - tns migrate
     - npm install tns-core-modules@next -P --save-exact
     - npm install tns-platform-declarations@next -D --save-exact
     - npm install nativescript-dev-webpack@next -D --save-exact
@@ -209,7 +208,6 @@ install:
     - npx rimraf -- hooks node_modules platforms package-lock.json
     - npm install -D wd@latest
     - cd ../demo-angular
-    - tns migrate
     - npm install tns-core-modules@next -P --save-exact
     - npm install tns-platform-declarations@next -D --save-exact
     - npm install nativescript-angular@next -P --save-exact
@@ -219,7 +217,6 @@ install:
     - npx rimraf -- hooks node_modules platforms package-lock.json
     - npm install -D wd@latest
     - cd ../demo-vue
-    - tns migrate
     - npm install tns-core-modules@next -P --save-exact
     - npm install nativescript-vue@next -P --save-exact
     - npm install tns-platform-declarations@next -D --save-exact
