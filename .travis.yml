@@ -142,7 +142,7 @@ matrix:
       node_js: "10"
       script:
         - npm i -g appium
-        - cd tests && npm i
+        - cd ../tests && npm i
         - travis_wait travis_retry npm run e2e -- --runType android24 --sauceLab --appPath $ANDROID_PACKAGE_NG
     - os: linux
       env:
@@ -172,7 +172,7 @@ matrix:
       node_js: "10"
       script:
         - npm i -g appium
-        - cd tests && npm i
+        - cd ../tests && npm i
         - travis_wait travis_retry npm run e2e -- --runType sim.iPhoneX.iOS12 --sauceLab --appPath $IOS_PACKAGE_NG
 
 android:
