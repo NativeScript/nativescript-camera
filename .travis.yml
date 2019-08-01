@@ -34,6 +34,7 @@ matrix:
       language: node_js 
       node_js: "10"
       jdk: oraclejdk8
+      before_script: pod repo update
       script: 
         - cd demo && npm run build.plugin
         - npm i && tns build ios --env.uglify --copy-to "./outputs/demo.app"
@@ -47,6 +48,7 @@ matrix:
       language: node_js 
       node_js: "10"
       jdk: oraclejdk8
+      before_script: pod repo update
       script: 
         - cd src && npm run build && npm pack
         - cd ../demo-angular && tns plugin add ../src/*.tgz
@@ -61,6 +63,7 @@ matrix:
       language: node_js 
       node_js: "10"
       jdk: oraclejdk8
+      before_script: pod repo update
       script: 
         - cd src && npm run build
         - cd ../demo-vue && npm i && tns build ios --env.uglify --copy-to "./outputs/demovue.app"
