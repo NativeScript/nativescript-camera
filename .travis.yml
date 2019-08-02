@@ -30,6 +30,7 @@ matrix:
       node_js: "10"
       jdk: oraclejdk8
       before_script:
+        - pod repo update
         - cd ../demo && tns platform add ios@next
       script: 
         - cd ../demo && npm run build.plugin
@@ -45,6 +46,7 @@ matrix:
       node_js: "10"
       jdk: oraclejdk8
       before_script:
+        - pod repo update
         - cd ../demo-angular && tns platform add ios@next
       script: 
         - cd ../src && npm run build && npm pack
@@ -61,6 +63,7 @@ matrix:
       node_js: "10"
       jdk: oraclejdk8
       before_script:
+        - pod repo update
         - cd ../demo-vue && tns platform add ios@next
       script: 
         - cd ../src && npm run build
