@@ -168,6 +168,28 @@ camera.takePicture(options).
     });
 ```
 
+### Save a picture
+
+To save a picture with the width & height that you have defined you must use the imageAsset and save it to the file system like so:
+
+``` TypeScript
+                        const source = new ImageSource();
+                        source.fromAsset(imageAsset)
+                            .then((imageSource: ImageSource) => {
+                                const folderPath = knownFolders.documents().path;
+                                const fileName = "test.jpg";
+                                const filePath = path.join(folderPath, fileName);
+                                const saved: boolean = imageSource.saveToFile(filePath, "jpg");
+                                if (saved) {
+                                    console.log("Gallery: " + this._dataItem.picture_url);
+                                    console.log("Saved: " + filePath);
+                                    console.log("Image saved successfully!");
+                                }
+                            });
+```
+
+This could be used to create thumbnails for quick display within your application.
+
 ### Check if the device has available camera
 
 The first thing that the developers should check if the device has an available camera.
