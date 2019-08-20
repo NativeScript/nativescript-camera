@@ -80,6 +80,13 @@
         "fullReset": false,
         "app": ""
     },
+    "android28": {
+        "platformName": "Android",
+        "platformVersion": "9.0",
+        "deviceName": "Android GoogleAPI Emulator",
+        "appiumVersion": "1.9.1",
+        "noReset": true
+    },
     "sim.iPhone7.iOS100": {
         "platformName": "iOS",
         "platformVersion": "10.0",
