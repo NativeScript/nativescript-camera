@@ -12,7 +12,7 @@ declare let global: any;
 let useAndroidX = function () {
     return global.androidx && global.androidx.appcompat;
 };
-const FileProviderPackageName = useAndroidX() ? global.androidx.core.content : android.support.v4.content;
+const FileProviderPackageName = useAndroidX() ? global.androidx.core.content : global.android.support.v4.content;
 
 export let takePicture = function (options?): Promise<any> {
     return new Promise((resolve, reject) => {
