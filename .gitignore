@@ -31,3 +31,4 @@ demo*/report/stats.json
 test-results.xml
 mochawesome-report/
 /**/e2e/reports/
+package-lock.json

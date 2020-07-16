@@ -1,10 +1,10 @@
-import imageAsset = require("tns-core-modules/image-asset/image-asset");
+import { ImageAsset } from '@nativescript/core';
 
 /**
  * Take a photo using the camera.
  * @param options - Optional parameter for setting different camera options.
  */
-export function takePicture(options?: CameraOptions): Promise<imageAsset.ImageAsset>;
+export function takePicture(options?: CameraOptions): Promise<ImageAsset>;
 
 /**
  * Check required permissions for using device camera.

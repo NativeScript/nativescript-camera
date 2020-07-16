@@ -1,9 +1,4 @@
-import * as typesModule from "tns-core-modules/utils/types";
-import * as utilsModule from "tns-core-modules/utils/utils";
-import * as applicationModule from "tns-core-modules/application/application";
-import * as imageAssetModule from "tns-core-modules/image-asset/image-asset";
-import * as trace from "tns-core-modules/trace/trace";
-import * as platform from "tns-core-modules/platform/platform";
+import { Utils, Application, Device, Trace, ImageAsset } from "@nativescript/core";
 import * as permissions from "nativescript-permissions";
 
 let REQUEST_IMAGE_CAPTURE = 3453;
@@ -23,20 +18,17 @@ export let takePicture = function (options?): Promise<any> {
                 return;
             }
 
-            let types: typeof typesModule = require("tns-core-modules/utils/types");
-            let utils: typeof utilsModule = require("tns-core-modules/utils/utils");
-
             let saveToGallery = true;
             let reqWidth = 0;
             let reqHeight = 0;
             let shouldKeepAspectRatio = true;
 
-            let density = utils.layout.getDisplayDensity();
+            let density = Utils.layout.getDisplayDensity();
             if (options) {
-                saveToGallery = types.isNullOrUndefined(options.saveToGallery) ? saveToGallery : options.saveToGallery;
+                saveToGallery = Utils.isNullOrUndefined(options.saveToGallery) ? saveToGallery : options.saveToGallery;
                 reqWidth = options.width ? options.width * density : reqWidth;
                 reqHeight = options.height ? options.height * density : reqWidth;
-                shouldKeepAspectRatio = types.isNullOrUndefined(options.keepAspectRatio) ? shouldKeepAspectRatio : options.keepAspectRatio;
+                shouldKeepAspectRatio = Utils.isNullOrUndefined(options.keepAspectRatio) ? shouldKeepAspectRatio : options.keepAspectRatio;
             }
 
             if (!permissions.hasPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
@@ -57,15 +49,15 @@ export let takePicture = function (options?): Promise<any> {
 
                 nativeFile = new java.io.File(picturePath);
             } else {
-                picturePath = utils.ad.getApplicationContext().getExternalFilesDir(null).getAbsolutePath() + "/" + "NSIMG_" + dateStamp + ".jpg";
+                picturePath = Utils.android.getApplicationContext().getExternalFilesDir(null).getAbsolutePath() + "/" + "NSIMG_" + dateStamp + ".jpg";
                 nativeFile = new java.io.File(picturePath);
             }
 
-            let sdkVersionInt = parseInt(platform.device.sdkVersion);
+            let sdkVersionInt = parseInt(Device.sdkVersion);
             if (sdkVersionInt >= 21) {
                 tempPictureUri = FileProviderPackageName.FileProvider.getUriForFile(
-                    applicationModule.android.context,
-                    applicationModule.android.nativeApp.getPackageName() + ".provider", nativeFile);
+                  Application.android.context,
+                  Application.android.nativeApp.getPackageName() + ".provider", nativeFile);
             } else {
                 tempPictureUri = android.net.Uri.fromFile(nativeFile);
             }
@@ -80,14 +72,12 @@ export let takePicture = function (options?): Promise<any> {
                     android.hardware.Camera.CameraInfo.CAMERA_FACING_BACK);
             }
 
-            if (takePictureIntent.resolveActivity(utils.ad.getApplicationContext().getPackageManager()) != null) {
-
-                let appModule: typeof applicationModule = require("tns-core-modules/application");
+            if (takePictureIntent.resolveActivity(Utils.android.getApplicationContext().getPackageManager()) != null) {
 
                 // Remove previous listeners if any
-                appModule.android.off("activityResult");
+                Application.android.off("activityResult");
 
-                appModule.android.on("activityResult", (args) => {
+                Application.android.on("activityResult", (args) => {
                     const requestCode = args.requestCode;
                     const resultCode = args.resultCode;
 
@@ -96,17 +86,17 @@ export let takePicture = function (options?): Promise<any> {
                             try {
                                 let callback = new android.media.MediaScannerConnection.OnScanCompletedListener({
                                     onScanCompleted: function (path, uri) {
-                                        if (trace.isEnabled()) {
-                                            trace.write(`image from path ${path} has been successfully scanned!`, trace.categories.Debug);
+                                        if (Trace.isEnabled()) {
+                                            Trace.write(`image from path ${path} has been successfully scanned!`, Trace.categories.Debug);
                                         }
                                     }
                                 });
 
-                                android.media.MediaScannerConnection.scanFile(appModule.android.context, [picturePath], null, callback);
+                                android.media.MediaScannerConnection.scanFile(Application.android.context, [picturePath], null, callback);
                             } catch (ex) {
-                                if (trace.isEnabled()) {
-                                    trace.write(`An error occurred while scanning file ${picturePath}: ${ex.message}!`,
-                                        trace.categories.Debug);
+                                if (Trace.isEnabled()) {
+                                    Trace.write(`An error occurred while scanning file ${picturePath}: ${ex.message}!`,
+                                        Trace.categories.Debug);
                                 }
                             }
                         }
@@ -135,7 +125,7 @@ export let takePicture = function (options?): Promise<any> {
                             }
                         }
 
-                        let asset = new imageAssetModule.ImageAsset(picturePath);
+                        let asset = new ImageAsset(picturePath);
                         asset.options = {
                             width: reqWidth,
                             height: reqHeight,
@@ -148,7 +138,7 @@ export let takePicture = function (options?): Promise<any> {
                     }
                 });
 
-                appModule.android.foregroundActivity.startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                Application.android.foregroundActivity.startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
 
             }
         } catch (e) {
@@ -160,9 +150,8 @@ export let takePicture = function (options?): Promise<any> {
 };
 
 export let isAvailable = function () {
-    let utils: typeof utilsModule = require("tns-core-modules/utils/utils");
 
-    return utils.ad
+    return Utils.android
         .getApplicationContext()
         .getPackageManager()
         .hasSystemFeature(android.content.pm.PackageManager.FEATURE_CAMERA);
@@ -213,9 +202,9 @@ let rotateBitmap = function (picturePath, angle) {
         out.flush();
         out.close();
     } catch (ex) {
-        if (trace.isEnabled()) {
-            trace.write(`An error occurred while rotating file ${picturePath} (using the original one): ${ex.message}!`,
-                trace.categories.Debug);
+        if (Trace.isEnabled()) {
+            Trace.write(`An error occurred while rotating file ${picturePath} (using the original one): ${ex.message}!`,
+                Trace.categories.Debug);
         }
     }
 };
