@@ -73,6 +73,16 @@ camera.requestPermissions().then(
 
 > **Note for Android:** Older versions of Android that don't use a request permissions popup won't be affected by the usage of the requestPermissions method.
 
+> **Note for Android >=10:** You need to add the following key `android:requestLegacyExternalStorage="true"` if you are targetting API 29 or higher.
+```
+<manifest ... >
+<!-- This attribute is "false" by default on apps targeting Android 10 or higher. -->
+  <application android:requestLegacyExternalStorage="true" ... >
+    ...
+  </application>
+</manifest>
+```
+
 > **Note for iOS:** If the user rejects permissions from the iOS popup, the app is not allowed to ask again. You can instruct the user to go to app settings and enable the camera permission manually from there. Additionally, [App Store Guideline 5.1.1](https://developer.apple.com/app-store/review/guidelines/#data-collection-and-storage) requires apps to clarify the usage of the camera and photo library. To do so, edit your `app/App_Resources/iOS/Info.plist` and add the following clarifications:
 
 ```
