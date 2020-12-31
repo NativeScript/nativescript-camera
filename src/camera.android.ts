@@ -115,12 +115,19 @@ export let takePicture = function (options?): Promise<any> {
                         let orientation = exif.getAttributeInt(android.media.ExifInterface.TAG_ORIENTATION,
                             android.media.ExifInterface.ORIENTATION_NORMAL);
 
-                        if (orientation === android.media.ExifInterface.ORIENTATION_ROTATE_90) {
-                            rotateBitmap(picturePath, 90);
-                        } else if (orientation === android.media.ExifInterface.ORIENTATION_ROTATE_180) {
-                            rotateBitmap(picturePath, 180);
-                        } else if (orientation === android.media.ExifInterface.ORIENTATION_ROTATE_270) {
-                            rotateBitmap(picturePath, 270);
+                        if (!options.disableRotation) {
+                            console.log('Rotating photo');
+
+                            if (orientation === android.media.ExifInterface.ORIENTATION_ROTATE_90) {
+                                console.log('Rotation: 90deg')
+                                rotateBitmap(picturePath, 90);
+                            } else if (orientation === android.media.ExifInterface.ORIENTATION_ROTATE_180) {
+                                console.log('Rotation: 180deg')
+                                rotateBitmap(picturePath, 180);
+                            } else if (orientation === android.media.ExifInterface.ORIENTATION_ROTATE_270) {
+                                console.log('Rotation: 270deg')
+                                rotateBitmap(picturePath, 270);
+                            }
                         }
 
                         if (shouldKeepAspectRatio) {

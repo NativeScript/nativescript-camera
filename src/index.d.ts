@@ -55,4 +55,9 @@ export interface CameraOptions {
      * The current implementation doesn't work on all Android devices, in which case it falls back to the default behavior.
      */
     cameraFacing?: "front" | "rear";
+
+    /**
+     * Disable rotation after picture is taken (Android only for now)
+     */
+    disableRotation?: boolean;
 }
