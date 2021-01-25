@@ -177,6 +177,9 @@ export let takePicture = function (options): Promise<any> {
         let frame: typeof frameModule = require("tns-core-modules/ui/frame");
 
         let topMostFrame = frame.topmost();
+        while (topMostFrame.parent) {
+            topMostFrame = topMostFrame.parent as any;
+        }
         if (topMostFrame) {
             let viewController: UIViewController = topMostFrame.currentPage && topMostFrame.currentPage.ios;
             if (viewController) {
