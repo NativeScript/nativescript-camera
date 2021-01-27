@@ -175,26 +175,32 @@ export let takePicture = function (options): Promise<any> {
         imagePickerController.modalPresentationStyle = UIModalPresentationStyle.CurrentContext;
 
         let frame: typeof frameModule = require("tns-core-modules/ui/frame");
+        let Frame = frame.Frame;
 
-        let topMostFrame = frame.topmost();
-        while (topMostFrame.parent) {
-            topMostFrame = topMostFrame.parent as any;
+        var currentFrame = Frame.topmost();
+        var parentFrame = currentFrame.parent;
+        var rootFrame = currentFrame;
+        while (parentFrame) {
+            if (parentFrame instanceof Frame) {
+                rootFrame = parentFrame;
+            }
+            parentFrame = parentFrame.parent;
         }
-        if (topMostFrame) {
-            let viewController: UIViewController = topMostFrame.currentPage && topMostFrame.currentPage.ios;
+        if (rootFrame instanceof Frame) {
+            var viewController = rootFrame.currentPage && rootFrame.currentPage.ios;
             if (viewController) {
                 while (viewController.parentViewController) {
-                    // find top-most view controler
                     viewController = viewController.parentViewController;
                 }
-
                 while (viewController.presentedViewController) {
-                    // find last presented modal
                     viewController = viewController.presentedViewController;
                 }
-
                 viewController.presentViewControllerAnimatedCompletion(imagePickerController, true, null);
+            } else {
+                console.log('viewController not found');
             }
+        } else {
+            console.log('rootFrame is not a Frame')
         }
     });
 };
