@@ -1,3 +1,10 @@
+## NativeScript 7 or higher
+
+* Use `@nativescript/camera`: `~5.0.0`
+* [Source managed here](https://github.com/NativeScript/plugins)
+
+## If using 6 and below, see the following:
+
 # NativeScript Camera [![Build Status](https://travis-ci.org/NativeScript/nativescript-camera.svg?branch=master)](https://travis-ci.org/NativeScript/nativescript-camera)
 
 Welcome to the `nativescript-camera` plugin for NativeScript framework 
