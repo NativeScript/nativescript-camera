@@ -1,8 +1,4 @@
-import * as types from "tns-core-modules/utils/types";
-import * as imageSourceModule from "tns-core-modules/image-source/image-source";
-import * as imageAssetModule from "tns-core-modules/image-asset/image-asset";
-import * as frameModule from "tns-core-modules/ui/frame/frame";
-import * as trace from "tns-core-modules/trace/trace";
+import { Utils, ImageSource, ImageAsset, Trace, Frame } from "@nativescript/core";
 
 class UIImagePickerControllerDelegateImpl extends NSObject implements UIImagePickerControllerDelegate {
     public static ObjCProtocols = [UIImagePickerControllerDelegate];
@@ -34,7 +30,7 @@ class UIImagePickerControllerDelegateImpl extends NSObject implements UIImagePic
             this._height = options.height;
             this._saveToGallery = options.saveToGallery;
             this._allowsEditing = options.allowsEditing;
-            this._keepAspectRatio = types.isNullOrUndefined(options.keepAspectRatio) ? true : options.keepAspectRatio;
+            this._keepAspectRatio = Utils.isNullOrUndefined(options.keepAspectRatio) ? true : options.keepAspectRatio;
         }
         return this;
     }
@@ -47,11 +43,10 @@ class UIImagePickerControllerDelegateImpl extends NSObject implements UIImagePic
                 source = info.valueForKey(UIImagePickerControllerEditedImage);
             }
             if (source) {
-                let imageSource: typeof imageSourceModule = require("image-source");
-                let imageSourceResult = imageSource.fromNativeSource(source);
+                let imageSourceResult = new ImageSource(source);
 
                 if (this._callback) {
-                    let imageAsset: imageAssetModule.ImageAsset;
+                    let imageAsset: ImageAsset;
                     if (this._saveToGallery) {
                         PHPhotoLibrary.sharedPhotoLibrary().performChangesCompletionHandler(
                             () => {
@@ -77,17 +72,17 @@ class UIImagePickerControllerDelegateImpl extends NSObject implements UIImagePic
                                             // Display waring if the asset was created more than 1s before/after the current date.
                                             console.warn("Image asset returned was created more than 1 second ago");
                                         }
-                                        imageAsset = new imageAssetModule.ImageAsset(asset);
+                                        imageAsset = new ImageAsset(asset);
                                         this.setImageAssetAndCallCallback(imageAsset);
                                     }
 
                                 } else {
-                                    trace.write("An error ocurred while saving image to gallery: " +
-                                        err, trace.categories.Error, trace.messageType.error);
+                                    Trace.write("An error ocurred while saving image to gallery: " +
+                                        err, Trace.categories.Error, Trace.messageType.error);
                                 }
                             });
                     } else {
-                        imageAsset = new imageAssetModule.ImageAsset(imageSourceResult.ios);
+                        imageAsset = new ImageAsset(imageSourceResult.ios);
                         this.setImageAssetAndCallCallback(imageAsset);
                     }
                 }
@@ -97,7 +92,7 @@ class UIImagePickerControllerDelegateImpl extends NSObject implements UIImagePic
         listener = null;
     }
 
-    private setImageAssetAndCallCallback(imageAsset: imageAssetModule.ImageAsset) {
+    private setImageAssetAndCallCallback(imageAsset: ImageAsset) {
         if (this._keepAspectRatio) {
             let pictureWidth = imageAsset.nativeImage ? imageAsset.nativeImage.size.width : imageAsset.ios.pixelWidth;
             let pictureHeight = imageAsset.nativeImage ? imageAsset.nativeImage.size.height : imageAsset.ios.pixelHeight;
@@ -138,9 +133,9 @@ export let takePicture = function (options): Promise<any> {
         if (options) {
             reqWidth = options.width || 0;
             reqHeight = options.height || reqWidth;
-            keepAspectRatio = types.isNullOrUndefined(options.keepAspectRatio) ? keepAspectRatio : options.keepAspectRatio;
-            saveToGallery = types.isNullOrUndefined(options.saveToGallery) ? saveToGallery : options.saveToGallery;
-            allowsEditing = types.isNullOrUndefined(options.allowsEditing) ? allowsEditing : options.allowsEditing;
+            keepAspectRatio = Utils.isNullOrUndefined(options.keepAspectRatio) ? keepAspectRatio : options.keepAspectRatio;
+            saveToGallery = Utils.isNullOrUndefined(options.saveToGallery) ? saveToGallery : options.saveToGallery;
+            allowsEditing = Utils.isNullOrUndefined(options.allowsEditing) ? allowsEditing : options.allowsEditing;
         }
 
         let authStatus = PHPhotoLibrary.authorizationStatus();
@@ -174,9 +169,7 @@ export let takePicture = function (options): Promise<any> {
 
         imagePickerController.modalPresentationStyle = UIModalPresentationStyle.CurrentContext;
 
-        let frame: typeof frameModule = require("tns-core-modules/ui/frame");
-
-        let topMostFrame = frame.topmost();
+        let topMostFrame = Frame.topmost();
         if (topMostFrame) {
             let viewController: UIViewController = topMostFrame.currentPage && topMostFrame.currentPage.ios;
             if (viewController) {
@@ -215,8 +208,8 @@ export let requestPhotosPermissions = function () {
             case PHAuthorizationStatus.NotDetermined: {
                 PHPhotoLibrary.requestAuthorization((auth) => {
                     if (auth === PHAuthorizationStatus.Authorized) {
-                        if (trace.isEnabled()) {
-                            trace.write("Application can access photo library assets.", trace.categories.Debug);
+                        if (Trace.isEnabled()) {
+                            Trace.write("Application can access photo library assets.", Trace.categories.Debug);
                         }
                         resolve();
                     } else {
@@ -226,16 +219,16 @@ export let requestPhotosPermissions = function () {
                 break;
             }
             case PHAuthorizationStatus.Authorized: {
-                if (trace.isEnabled()) {
-                    trace.write("Application can access photo library assets.", trace.categories.Debug);
+                if (Trace.isEnabled()) {
+                    Trace.write("Application can access photo library assets.", Trace.categories.Debug);
                 }
                 resolve();
                 break;
             }
             case PHAuthorizationStatus.Restricted:
             case PHAuthorizationStatus.Denied: {
-                if (trace.isEnabled()) {
-                    trace.write("Application can not access photo library assets.", trace.categories.Debug);
+                if (Trace.isEnabled()) {
+                    Trace.write("Application can not access photo library assets.", Trace.categories.Debug);
                 }
                 reject();
                 break;
@@ -264,8 +257,8 @@ export let requestCameraPermissions = function () {
             }
             case AVAuthorizationStatus.Restricted:
             case AVAuthorizationStatus.Denied: {
-                if (trace.isEnabled()) {
-                    trace.write("Application can not access Camera assets.", trace.categories.Debug);
+                if (Trace.isEnabled()) {
+                    Trace.write("Application can not access Camera assets.", Trace.categories.Debug);
                 }
                 reject();
                 break;
